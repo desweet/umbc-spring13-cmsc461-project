@@ -22,14 +22,15 @@ public class Airline {
 		}
 	}
 	
-	/* @input: Flight object to add to database
+	/*******************************************************************************************************************
+	 * @input: Flight object to add to database
 	 * @output: Boolean for if adding the flight was successful
-	 */
+	 ******************************************************************************************************************/
 	@SuppressWarnings("deprecation")
 	public Boolean addFlight(Flight f){
 		try {
 			PreparedStatement insertStatement = 
-					CONN.prepareStatement("INSERT into flights values (default, ?, ?, ?, ?, ?, ?)");
+					CONN.prepareStatement("INSERT into flights values (?, ?, ?, ?, ?, ?, ?)");
 			
 			//get date created, and set depart and arrival times
 			//Calendar today = Calendar.getInstance();
@@ -52,9 +53,10 @@ public class Airline {
 		return true;
 	}
 	
-	/* @input: Passenger object to add to database
+	/*******************************************************************************************************************
+	 * @input: Passenger object to add to database
 	 * @output: Boolean for if adding the flight was successful
-	 */
+	 *******************************************************************************************************************/
 	public Boolean addPassenger(Passenger p){
 		try {
 			PreparedStatement insertStatement = 
@@ -84,9 +86,10 @@ public class Airline {
 		return true;
 	}
 	
-	/* @input: Passenger object to add to database
-	 * @output: Boolean for if adding the flight was successful
-	 */
+	/********************************************************************************************************************
+	 * @input: Passenger object to add to database
+	 * @output: String ("confirmed" || "waiting") or null for error  
+	 *******************************************************************************************************************/
 	@SuppressWarnings("deprecation")
 	public String makeReservation(Reservation r){
 		try {
@@ -136,7 +139,10 @@ public class Airline {
 		}
 	}
 	
-	//given the flight number, counts the number of confirmed reservations
+	/***********************************************************************************************************************
+	 * @input a flight number
+	 * @output number of confirmed reservations for that flight
+	 ***********************************************************************************************************************/
 	public int countPassengers(int flightNum){
 		int count = 0;
 		try {
