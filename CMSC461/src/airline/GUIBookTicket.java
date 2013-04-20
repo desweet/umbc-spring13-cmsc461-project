@@ -329,6 +329,8 @@ public class GUIBookTicket {
 						else
 							lblReservationStatusStatus.setText("Failed");
 					}
+					
+					lblSubmitStatus.setText("");
 				}	
 			}
 		});
