@@ -15,7 +15,8 @@ public class Airline {
 		Class.forName("com.mysql.jdbc.Driver");
 		
 		// establish connection to database to be used for every method
-		CONN = DriverManager.getConnection("jdbc:mysql://localhost/airline?" + "user=root&password=password");
+//		CONN = DriverManager.getConnection("jdbc:mysql://localhost/airline?" + "user=root&password=password");
+		CONN = DriverManager.getConnection("jdbc:mysql://mysql.desweet.com/cmsc461?" + "user=mpod&password=weasel");
 		} catch (Exception e) {
 			System.out.println("Failure!: " + e.getMessage());
 		}
