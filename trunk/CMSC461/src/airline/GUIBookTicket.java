@@ -15,7 +15,7 @@ public class GUIBookTicket {
 
 	JFrame frmBookTicket;
 	private JTextField tfSSN;
-	private JTextField tfName;
+	private JTextField tfFirstName;
 	private JTextField tfStreet;
 	private JTextField tfFlightClass;
 	private JTextField tfAmountPaid;
@@ -27,6 +27,8 @@ public class GUIBookTicket {
 	private JTextField tfEmail;
 	private JTextField tfPhoneOffice;
 	private JTextField tfFlightNumber;
+	private JTextField tfLastName;
+	private JTextField tfAge;
 
 	/**
 	 * Launch the application.
@@ -58,7 +60,7 @@ public class GUIBookTicket {
 		frmBookTicket = new JFrame();
 		frmBookTicket.setResizable(false);
 		frmBookTicket.setTitle("Book Ticket");
-		frmBookTicket.setBounds(100, 100, 400, 400);
+		frmBookTicket.setBounds(100, 100, 400, 450);
 		frmBookTicket.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmBookTicket.setLocationRelativeTo(null);
 		frmBookTicket.getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
@@ -72,14 +74,32 @@ public class GUIBookTicket {
 		tfSSN.setColumns(10);
 		frmBookTicket.getContentPane().add(tfSSN);
 		
-		JLabel lblName = new JLabel("Name:");
-		lblName.setHorizontalAlignment(SwingConstants.CENTER);
-		frmBookTicket.getContentPane().add(lblName);
+		JLabel lblFirstName = new JLabel("First name:");
+		lblFirstName.setHorizontalAlignment(SwingConstants.CENTER);
+		frmBookTicket.getContentPane().add(lblFirstName);
 		
-		tfName = new JTextField();
-		tfName.setHorizontalAlignment(SwingConstants.CENTER);
-		tfName.setColumns(10);
-		frmBookTicket.getContentPane().add(tfName);
+		tfFirstName = new JTextField();
+		tfFirstName.setHorizontalAlignment(SwingConstants.CENTER);
+		tfFirstName.setColumns(10);
+		frmBookTicket.getContentPane().add(tfFirstName);
+		
+		JLabel lblLastName = new JLabel("Last name:");
+		lblLastName.setHorizontalAlignment(SwingConstants.CENTER);
+		frmBookTicket.getContentPane().add(lblLastName);
+		
+		tfLastName = new JTextField();
+		tfLastName.setHorizontalAlignment(SwingConstants.CENTER);
+		tfLastName.setColumns(10);
+		frmBookTicket.getContentPane().add(tfLastName);
+		
+		JLabel lblAge = new JLabel("Age:");
+		lblAge.setHorizontalAlignment(SwingConstants.CENTER);
+		frmBookTicket.getContentPane().add(lblAge);
+		
+		tfAge = new JTextField();
+		tfAge.setHorizontalAlignment(SwingConstants.CENTER);
+		tfAge.setColumns(10);
+		frmBookTicket.getContentPane().add(tfAge);
 		
 		JLabel lblAddress = new JLabel("Street:");
 		lblAddress.setHorizontalAlignment(SwingConstants.CENTER);
@@ -195,7 +215,11 @@ public class GUIBookTicket {
 			public void actionPerformed(ActionEvent e) {
 				if (tfSSN.getText().trim().equals(""))
 					lblSubmitStatus.setText("Required field(s)");
-				else if (tfName.getText().trim().equals(""))
+				else if (tfFirstName.getText().trim().equals(""))
+					lblSubmitStatus.setText("Required field(s)");
+				else if (tfLastName.getText().trim().equals(""))
+					lblSubmitStatus.setText("Required field(s)");
+				else if (tfAge.getText().trim().equals(""))
 					lblSubmitStatus.setText("Required field(s)");
 				else if (tfStreet.getText().trim().equals(""))
 					lblSubmitStatus.setText("Required field(s)");
@@ -215,8 +239,52 @@ public class GUIBookTicket {
 					lblSubmitStatus.setText("Required field(s)");
 				else if (tfAmountPaid.getText().trim().equals(""))
 					lblSubmitStatus.setText("Required field(s)");
-				else
+				else if (tfSSN.getText().length() != 9)
+					lblSubmitStatus.setText("Invalid SSN");
+				else if (tfZip.getText().length() != 5)
+					lblSubmitStatus.setText("Invalid zip code");
+				else if (!tfPhoneHome.getText().trim().equals("") && tfPhoneHome.getText().length() != 10)
+					lblSubmitStatus.setText("Invalid home phone");
+				else if (!tfPhoneOffice.getText().trim().equals("") && tfPhoneOffice.getText().length() != 10)
+					lblSubmitStatus.setText("Invalid office phone");
+				else {
+					double ssn = Double.parseDouble(tfSSN.getText());
+					String firstName = tfFirstName.getText();
+					String lastName = tfLastName.getText();
+					int age = Integer.parseInt(tfAge.getText());
+					String street = tfStreet.getText();
+					String city = tfCity.getText();
+					String state = tfState.getText();
+					int zip = Integer.parseInt(tfZip.getText());
+					
+					int apartmentNumber = 0;
+					double phoneHome = 0;
+					double phoneOffice = 0;
+					
+					if (!tfApartmentNumber.getText().trim().equals(""))
+						apartmentNumber = Integer.parseInt(tfApartmentNumber.getText());
+					if (!tfPhoneHome.getText().trim().equals(""))
+						phoneHome = Double.parseDouble(tfPhoneHome.getText());
+					if (!tfPhoneOffice.getText().trim().equals(""))
+						phoneOffice = Double.parseDouble(tfPhoneOffice.getText());
+					
+					Passenger passenger = new Passenger(ssn,
+														firstName,
+														lastName,
+														age,
+														street,
+														apartmentNumber,
+														city,
+														state,
+														zip,
+														phoneHome,
+														phoneOffice);
+					
+					lblReservationStatusStatus.setText("Confirmed");
 					lblSubmitStatus.setText("Successfully submitted");
+				}
+				
+					
 			}
 		});
 		frmBookTicket.getContentPane().add(btnSubmit);
