@@ -152,16 +152,21 @@ public class Airline {
 	}
 	
 	//return array of all the current flight numbers
-	public ArrayList<Integer> getFlightNumbers( ){
+	public ArrayList<String> getFlightNumbers( ){
 		try {
-			Statement query = CONN.createStatement();;
-			ResultSet result = query.executeQuery("SELECT flight_number FROM flights");
+			Statement query = CONN.createStatement();
+			ResultSet result = query.executeQuery("SELECT * FROM flights");
 			
-			ArrayList<Integer> flightNumbers = new ArrayList<Integer>();
-			flightNumbers.add(result.getInt(1));
+			ArrayList<String> flightNumbers = new ArrayList<String>();
+			
+			result.first();
+			
+			//prime loop
+			flightNumbers.add(Integer.toString(result.getInt("flight_number")));
 			while (result.next()){
-				flightNumbers.add(result.getInt(1));
+				flightNumbers.add(Integer.toString(result.getInt("flight_number")));
 			}
+			
 			return flightNumbers;
 		} catch (Exception e) {
 			System.out.println("Failure: " + e.getMessage());
@@ -186,6 +191,12 @@ public class Airline {
 		Airline a = new Airline();
 
 		Reservation r = new Reservation(1, 123456788, "first", 75.25, 2 );
+
+		ArrayList<String> fn = a.getFlightNumbers();
+		
+		for(int i = 0; i < fn.size(); i++){
+			System.out.println(fn.get(i));
+		}
 		
 //		if (a.makeReservation(r) != null){
 //			System.out.println(":)");
@@ -194,7 +205,7 @@ public class Airline {
 //		}
 //			
 		//close connection to Database
-//		a.close();
+		a.close();
 	}
 	
 }
