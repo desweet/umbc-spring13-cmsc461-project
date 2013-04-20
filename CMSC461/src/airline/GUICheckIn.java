@@ -12,12 +12,12 @@ import javax.swing.JButton;
 public class GUICheckIn {
 
 	JFrame frmCheckIn;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField tfSSN;
+	private JTextField tfBaggageCarried;
 	private JLabel lblSeatNumber;
-	private JTextField textField_2;
+	private JTextField tfSeatNumber;
 	private JButton btnSubmit;
-	private JLabel label;
+	private JLabel tfSubmitStatus;
 
 	/**
 	 * Launch the application.
@@ -54,39 +54,39 @@ public class GUICheckIn {
 		frmCheckIn.setLocationRelativeTo(null);
 		frmCheckIn.getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JLabel lblSsn = new JLabel("SSN:");
-		lblSsn.setHorizontalAlignment(SwingConstants.CENTER);
-		frmCheckIn.getContentPane().add(lblSsn);
+		JLabel lblSSN = new JLabel("SSN:");
+		lblSSN.setHorizontalAlignment(SwingConstants.CENTER);
+		frmCheckIn.getContentPane().add(lblSSN);
 		
-		textField = new JTextField();
-		textField.setHorizontalAlignment(SwingConstants.CENTER);
-		textField.setColumns(10);
-		frmCheckIn.getContentPane().add(textField);
+		tfSSN = new JTextField();
+		tfSSN.setHorizontalAlignment(SwingConstants.CENTER);
+		tfSSN.setColumns(10);
+		frmCheckIn.getContentPane().add(tfSSN);
 		
 		JLabel lblBaggageCarried = new JLabel("Baggage carried:");
 		lblBaggageCarried.setHorizontalAlignment(SwingConstants.CENTER);
 		frmCheckIn.getContentPane().add(lblBaggageCarried);
 		
-		textField_1 = new JTextField();
-		textField_1.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_1.setColumns(10);
-		frmCheckIn.getContentPane().add(textField_1);
+		tfBaggageCarried = new JTextField();
+		tfBaggageCarried.setHorizontalAlignment(SwingConstants.CENTER);
+		tfBaggageCarried.setColumns(10);
+		frmCheckIn.getContentPane().add(tfBaggageCarried);
 		
 		lblSeatNumber = new JLabel("Seat number:");
 		lblSeatNumber.setHorizontalAlignment(SwingConstants.CENTER);
 		frmCheckIn.getContentPane().add(lblSeatNumber);
 		
-		textField_2 = new JTextField();
-		textField_2.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_2.setColumns(10);
-		frmCheckIn.getContentPane().add(textField_2);
+		tfSeatNumber = new JTextField();
+		tfSeatNumber.setHorizontalAlignment(SwingConstants.CENTER);
+		tfSeatNumber.setColumns(10);
+		frmCheckIn.getContentPane().add(tfSeatNumber);
 		
 		btnSubmit = new JButton("Submit");
 		frmCheckIn.getContentPane().add(btnSubmit);
 		
-		label = new JLabel("");
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		frmCheckIn.getContentPane().add(label);
+		tfSubmitStatus = new JLabel("");
+		tfSubmitStatus.setHorizontalAlignment(SwingConstants.CENTER);
+		frmCheckIn.getContentPane().add(tfSubmitStatus);
 	}
 
 }

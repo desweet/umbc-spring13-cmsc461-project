@@ -12,12 +12,12 @@ import javax.swing.JButton;
 public class GUIModifyFlight {
 
 	JFrame frmModifyFlight;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JLabel lblArrivalDatetime;
-	private JTextField textField_2;
+	private JTextField tfFlightNumber;
+	private JTextField tfDepartureDateTime;
+	private JLabel lblArrivalDateTime;
+	private JTextField tfArrivalDateTime;
 	private JButton btnSubmit;
-	private JLabel label;
+	private JLabel tfSubmitStatus;
 
 	/**
 	 * Launch the application.
@@ -58,35 +58,35 @@ public class GUIModifyFlight {
 		lblFlightNumber.setHorizontalAlignment(SwingConstants.CENTER);
 		frmModifyFlight.getContentPane().add(lblFlightNumber);
 		
-		textField = new JTextField();
-		textField.setHorizontalAlignment(SwingConstants.CENTER);
-		frmModifyFlight.getContentPane().add(textField);
-		textField.setColumns(10);
+		tfFlightNumber = new JTextField();
+		tfFlightNumber.setHorizontalAlignment(SwingConstants.CENTER);
+		frmModifyFlight.getContentPane().add(tfFlightNumber);
+		tfFlightNumber.setColumns(10);
 		
-		JLabel lblDepartureDatetime = new JLabel("Departure date/time:");
-		lblDepartureDatetime.setHorizontalAlignment(SwingConstants.CENTER);
-		frmModifyFlight.getContentPane().add(lblDepartureDatetime);
+		JLabel lblDepartureDateTime = new JLabel("Departure date/time:");
+		lblDepartureDateTime.setHorizontalAlignment(SwingConstants.CENTER);
+		frmModifyFlight.getContentPane().add(lblDepartureDateTime);
 		
-		textField_1 = new JTextField();
-		textField_1.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_1.setColumns(10);
-		frmModifyFlight.getContentPane().add(textField_1);
+		tfDepartureDateTime = new JTextField();
+		tfDepartureDateTime.setHorizontalAlignment(SwingConstants.CENTER);
+		tfDepartureDateTime.setColumns(10);
+		frmModifyFlight.getContentPane().add(tfDepartureDateTime);
 		
-		lblArrivalDatetime = new JLabel("Arrival date/time:");
-		lblArrivalDatetime.setHorizontalAlignment(SwingConstants.CENTER);
-		frmModifyFlight.getContentPane().add(lblArrivalDatetime);
+		lblArrivalDateTime = new JLabel("Arrival date/time:");
+		lblArrivalDateTime.setHorizontalAlignment(SwingConstants.CENTER);
+		frmModifyFlight.getContentPane().add(lblArrivalDateTime);
 		
-		textField_2 = new JTextField();
-		textField_2.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_2.setColumns(10);
-		frmModifyFlight.getContentPane().add(textField_2);
+		tfArrivalDateTime = new JTextField();
+		tfArrivalDateTime.setHorizontalAlignment(SwingConstants.CENTER);
+		tfArrivalDateTime.setColumns(10);
+		frmModifyFlight.getContentPane().add(tfArrivalDateTime);
 		
 		btnSubmit = new JButton("Submit");
 		frmModifyFlight.getContentPane().add(btnSubmit);
 		
-		label = new JLabel("");
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		frmModifyFlight.getContentPane().add(label);
+		tfSubmitStatus = new JLabel("");
+		tfSubmitStatus.setHorizontalAlignment(SwingConstants.CENTER);
+		frmModifyFlight.getContentPane().add(tfSubmitStatus);
 	}
 
 }

@@ -8,22 +8,25 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class GUIBookTicket {
 
 	JFrame frmBookTicket;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
-	private JTextField textField_10;
-	private JTextField textField_11;
+	private JTextField tfSSN;
+	private JTextField tfName;
+	private JTextField tfStreet;
+	private JTextField tfFlightClass;
+	private JTextField tfAmountPaid;
+	private JTextField tfApartmentNumber;
+	private JTextField tfCity;
+	private JTextField tfState;
+	private JTextField tfZip;
+	private JTextField tfPhoneHome;
+	private JTextField tfEmail;
+	private JTextField tfPhoneOffice;
+	private JTextField tfFlightNumber;
 
 	/**
 	 * Launch the application.
@@ -60,128 +63,142 @@ public class GUIBookTicket {
 		frmBookTicket.setLocationRelativeTo(null);
 		frmBookTicket.getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JLabel label = new JLabel("SSN:");
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		frmBookTicket.getContentPane().add(label);
+		JLabel lblSSN = new JLabel("SSN:");
+		lblSSN.setHorizontalAlignment(SwingConstants.CENTER);
+		frmBookTicket.getContentPane().add(lblSSN);
 		
-		textField = new JTextField();
-		textField.setHorizontalAlignment(SwingConstants.CENTER);
-		textField.setColumns(10);
-		frmBookTicket.getContentPane().add(textField);
+		tfSSN = new JTextField();
+		tfSSN.setHorizontalAlignment(SwingConstants.CENTER);
+		tfSSN.setColumns(10);
+		frmBookTicket.getContentPane().add(tfSSN);
 		
 		JLabel lblName = new JLabel("Name:");
 		lblName.setHorizontalAlignment(SwingConstants.CENTER);
 		frmBookTicket.getContentPane().add(lblName);
 		
-		textField_1 = new JTextField();
-		textField_1.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_1.setColumns(10);
-		frmBookTicket.getContentPane().add(textField_1);
+		tfName = new JTextField();
+		tfName.setHorizontalAlignment(SwingConstants.CENTER);
+		tfName.setColumns(10);
+		frmBookTicket.getContentPane().add(tfName);
 		
 		JLabel lblAddress = new JLabel("Street:");
 		lblAddress.setHorizontalAlignment(SwingConstants.CENTER);
 		frmBookTicket.getContentPane().add(lblAddress);
 		
-		textField_2 = new JTextField();
-		textField_2.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_2.setColumns(10);
-		frmBookTicket.getContentPane().add(textField_2);
+		tfStreet = new JTextField();
+		tfStreet.setHorizontalAlignment(SwingConstants.CENTER);
+		tfStreet.setColumns(10);
+		frmBookTicket.getContentPane().add(tfStreet);
 		
 		JLabel lblApartmentNumber = new JLabel("Apartment number:");
 		lblApartmentNumber.setHorizontalAlignment(SwingConstants.CENTER);
 		frmBookTicket.getContentPane().add(lblApartmentNumber);
 		
-		textField_5 = new JTextField();
-		textField_5.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_5.setColumns(10);
-		frmBookTicket.getContentPane().add(textField_5);
+		tfApartmentNumber = new JTextField();
+		tfApartmentNumber.setHorizontalAlignment(SwingConstants.CENTER);
+		tfApartmentNumber.setColumns(10);
+		frmBookTicket.getContentPane().add(tfApartmentNumber);
 		
 		JLabel lblCity = new JLabel("City:");
 		lblCity.setHorizontalAlignment(SwingConstants.CENTER);
 		frmBookTicket.getContentPane().add(lblCity);
 		
-		textField_6 = new JTextField();
-		textField_6.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_6.setColumns(10);
-		frmBookTicket.getContentPane().add(textField_6);
+		tfCity = new JTextField();
+		tfCity.setHorizontalAlignment(SwingConstants.CENTER);
+		tfCity.setColumns(10);
+		frmBookTicket.getContentPane().add(tfCity);
 		
 		JLabel lblState = new JLabel("State:");
 		lblState.setHorizontalAlignment(SwingConstants.CENTER);
 		frmBookTicket.getContentPane().add(lblState);
 		
-		textField_7 = new JTextField();
-		textField_7.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_7.setColumns(10);
-		frmBookTicket.getContentPane().add(textField_7);
+		tfState = new JTextField();
+		tfState.setHorizontalAlignment(SwingConstants.CENTER);
+		tfState.setColumns(10);
+		frmBookTicket.getContentPane().add(tfState);
 		
 		JLabel lblZip = new JLabel("Zip:");
 		lblZip.setHorizontalAlignment(SwingConstants.CENTER);
 		frmBookTicket.getContentPane().add(lblZip);
 		
-		textField_8 = new JTextField();
-		textField_8.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_8.setColumns(10);
-		frmBookTicket.getContentPane().add(textField_8);
+		tfZip = new JTextField();
+		tfZip.setHorizontalAlignment(SwingConstants.CENTER);
+		tfZip.setColumns(10);
+		frmBookTicket.getContentPane().add(tfZip);
 		
-		JLabel lblPhone = new JLabel("Phone (home):");
-		lblPhone.setHorizontalAlignment(SwingConstants.CENTER);
-		frmBookTicket.getContentPane().add(lblPhone);
+		JLabel lblPhoneHome = new JLabel("Phone (home):");
+		lblPhoneHome.setHorizontalAlignment(SwingConstants.CENTER);
+		frmBookTicket.getContentPane().add(lblPhoneHome);
 		
-		textField_9 = new JTextField();
-		textField_9.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_9.setColumns(10);
-		frmBookTicket.getContentPane().add(textField_9);
+		tfPhoneHome = new JTextField();
+		tfPhoneHome.setHorizontalAlignment(SwingConstants.CENTER);
+		tfPhoneHome.setColumns(10);
+		frmBookTicket.getContentPane().add(tfPhoneHome);
 		
-		JLabel lblPhoneoffice = new JLabel("Phone (office):");
-		lblPhoneoffice.setHorizontalAlignment(SwingConstants.CENTER);
-		frmBookTicket.getContentPane().add(lblPhoneoffice);
+		JLabel lblPhoneOffice = new JLabel("Phone (office):");
+		lblPhoneOffice.setHorizontalAlignment(SwingConstants.CENTER);
+		frmBookTicket.getContentPane().add(lblPhoneOffice);
 		
-		textField_11 = new JTextField();
-		textField_11.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_11.setColumns(10);
-		frmBookTicket.getContentPane().add(textField_11);
+		tfPhoneOffice = new JTextField();
+		tfPhoneOffice.setHorizontalAlignment(SwingConstants.CENTER);
+		tfPhoneOffice.setColumns(10);
+		frmBookTicket.getContentPane().add(tfPhoneOffice);
 		
 		JLabel lblEmail = new JLabel("Email:");
 		lblEmail.setHorizontalAlignment(SwingConstants.CENTER);
 		frmBookTicket.getContentPane().add(lblEmail);
 		
-		textField_10 = new JTextField();
-		textField_10.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_10.setColumns(10);
-		frmBookTicket.getContentPane().add(textField_10);
+		tfEmail = new JTextField();
+		tfEmail.setHorizontalAlignment(SwingConstants.CENTER);
+		tfEmail.setColumns(10);
+		frmBookTicket.getContentPane().add(tfEmail);
+		
+		JLabel lblFlightNumber = new JLabel("Flight number:");
+		lblFlightNumber.setHorizontalAlignment(SwingConstants.CENTER);
+		frmBookTicket.getContentPane().add(lblFlightNumber);
+		
+		tfFlightNumber = new JTextField();
+		tfFlightNumber.setHorizontalAlignment(SwingConstants.CENTER);
+		tfFlightNumber.setColumns(10);
+		frmBookTicket.getContentPane().add(tfFlightNumber);
 		
 		JLabel lblFlightClass = new JLabel("Flight class:");
 		lblFlightClass.setHorizontalAlignment(SwingConstants.CENTER);
 		frmBookTicket.getContentPane().add(lblFlightClass);
 		
-		textField_3 = new JTextField();
-		textField_3.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_3.setColumns(10);
-		frmBookTicket.getContentPane().add(textField_3);
+		tfFlightClass = new JTextField();
+		tfFlightClass.setHorizontalAlignment(SwingConstants.CENTER);
+		tfFlightClass.setColumns(10);
+		frmBookTicket.getContentPane().add(tfFlightClass);
 		
 		JLabel lblAmountPaid = new JLabel("Amount paid:");
 		lblAmountPaid.setHorizontalAlignment(SwingConstants.CENTER);
 		frmBookTicket.getContentPane().add(lblAmountPaid);
 		
-		textField_4 = new JTextField();
-		textField_4.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_4.setColumns(10);
-		frmBookTicket.getContentPane().add(textField_4);
+		tfAmountPaid = new JTextField();
+		tfAmountPaid.setHorizontalAlignment(SwingConstants.CENTER);
+		tfAmountPaid.setColumns(10);
+		frmBookTicket.getContentPane().add(tfAmountPaid);
 		
 		JLabel lblReservationStatus = new JLabel("Reservation status:");
 		lblReservationStatus.setHorizontalAlignment(SwingConstants.CENTER);
 		frmBookTicket.getContentPane().add(lblReservationStatus);
 		
-		JLabel label_2 = new JLabel("");
-		label_2.setHorizontalAlignment(SwingConstants.CENTER);
-		frmBookTicket.getContentPane().add(label_2);
+		final JLabel tfReservationStatus = new JLabel("");
+		tfReservationStatus.setHorizontalAlignment(SwingConstants.CENTER);
+		frmBookTicket.getContentPane().add(tfReservationStatus);
 		
 		JButton btnSubmit = new JButton("Submit");
+		btnSubmit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+//				tfReservationStatus.setText(tfFlightClass.getText());
+			}
+		});
 		frmBookTicket.getContentPane().add(btnSubmit);
 		
-		JLabel label_1 = new JLabel("");
-		label_1.setHorizontalAlignment(SwingConstants.CENTER);
-		frmBookTicket.getContentPane().add(label_1);
+		JLabel tfSubmitStatus = new JLabel("");
+		tfSubmitStatus.setHorizontalAlignment(SwingConstants.CENTER);
+		frmBookTicket.getContentPane().add(tfSubmitStatus);
 	}
 
 }
