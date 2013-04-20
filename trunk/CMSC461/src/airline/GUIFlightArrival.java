@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class GUIFlightArrival {
 
@@ -90,6 +92,19 @@ public class GUIFlightArrival {
 		frmFlightArrival.getContentPane().add(lblTimeTakenStatus);
 		
 		btnGetStats = new JButton("Get Stats");
+		btnGetStats.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (tfFlightNumber.getText().trim().equals(""))
+					lblGetStatsStatus.setText("Required field(s)");
+				
+//				get flight object from db
+//				get passengers from object
+//				get stops from object (total number of stops)
+//				get time taken from object or calculate (arrival - departure)
+				
+				lblGetStatsStatus.setText("Successfully submitted");
+			}
+		});
 		btnGetStats.setHorizontalTextPosition(SwingConstants.CENTER);
 		frmFlightArrival.getContentPane().add(btnGetStats);
 		

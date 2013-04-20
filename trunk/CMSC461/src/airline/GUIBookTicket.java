@@ -60,7 +60,7 @@ public class GUIBookTicket {
 		frmBookTicket = new JFrame();
 		frmBookTicket.setResizable(false);
 		frmBookTicket.setTitle("Book Ticket");
-		frmBookTicket.setBounds(100, 100, 400, 450);
+		frmBookTicket.setBounds(100, 100, 400, 470);
 		frmBookTicket.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmBookTicket.setLocationRelativeTo(null);
 		frmBookTicket.getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
@@ -200,6 +200,14 @@ public class GUIBookTicket {
 		tfAmountPaid.setColumns(10);
 		frmBookTicket.getContentPane().add(tfAmountPaid);
 		
+		JLabel lblPassengerStatus = new JLabel("Passenger status:");
+		lblPassengerStatus.setHorizontalAlignment(SwingConstants.CENTER);
+		frmBookTicket.getContentPane().add(lblPassengerStatus);
+		
+		final JLabel lblPassengerStatusStatus = new JLabel("");
+		lblPassengerStatusStatus.setHorizontalAlignment(SwingConstants.CENTER);
+		frmBookTicket.getContentPane().add(lblPassengerStatusStatus);
+		
 		JLabel lblReservationStatus = new JLabel("Reservation status:");
 		lblReservationStatus.setHorizontalAlignment(SwingConstants.CENTER);
 		frmBookTicket.getContentPane().add(lblReservationStatus);
@@ -247,6 +255,13 @@ public class GUIBookTicket {
 					lblSubmitStatus.setText("Invalid home phone");
 				else if (!tfPhoneOffice.getText().trim().equals("") && tfPhoneOffice.getText().length() != 10)
 					lblSubmitStatus.setText("Invalid office phone");
+				else if (!tfFlightClass.getText().equals("first") ||
+						 !tfFlightClass.getText().equals("business") ||
+						 !tfFlightClass.getText().equals("economy") ||
+						 !tfFlightClass.getText().equals("First") ||
+						 !tfFlightClass.getText().equals("Business") ||
+						 !tfFlightClass.getText().equals("Economy"))
+					lblSubmitStatus.setText("Invalid flight class");
 				else {
 					double ssn = Double.parseDouble(tfSSN.getText());
 					String firstName = tfFirstName.getText();
@@ -280,13 +295,44 @@ public class GUIBookTicket {
 														phoneHome,
 														phoneOffice);
 					
-					lblReservationStatusStatus.setText("Confirmed");
-					lblSubmitStatus.setText("Successfully submitted");
-				}
-				
+					int flightNumber = Integer.parseInt(tfFlightNumber.getText());
+					String flightClass = tfFlightClass.getText();
+					double amountPaid = Double.parseDouble(tfAmountPaid.getText());
+					int bags = 0;
 					
+					Reservation reservation = new Reservation(flightNumber, ssn, flightClass, amountPaid, bags);
+					
+					Airline airline = new Airline();
+					boolean passengerStatus = airline.addPassenger(passenger);
+					String reservationStatus = airline.makeReservation(reservation);
+					
+					if (passengerStatus == false)
+					{
+						lblPassengerStatusStatus.setText("Already exists");
+						
+						if (reservationStatus.equals("confirmed"))
+							lblReservationStatusStatus.setText("Confirmed");
+						else if (reservationStatus.equals("waiting"))
+							lblReservationStatusStatus.setText("Waiting");
+						else
+							lblReservationStatusStatus.setText("Failed");
+					}
+						
+					else
+					{
+						lblPassengerStatusStatus.setText("Created");
+						
+						if (reservationStatus.equals("confirmed"))
+							lblReservationStatusStatus.setText("Confirmed");
+						else if (reservationStatus.equals("waiting"))
+							lblReservationStatusStatus.setText("Waiting");
+						else
+							lblReservationStatusStatus.setText("Failed");
+					}
+				}	
 			}
 		});
+		
 		frmBookTicket.getContentPane().add(btnSubmit);
 		
 		lblSubmitStatus.setHorizontalAlignment(SwingConstants.CENTER);
