@@ -17,6 +17,9 @@ public class Frontend {
 			System.out.println(":(");
 		}
 		
+		//close connection to Database
+		a.close();
+		
 
 	}
 
