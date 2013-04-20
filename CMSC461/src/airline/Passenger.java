@@ -7,12 +7,12 @@ public class Passenger {
 	private String lastName;
 	private int age;
 	private String street;
-	private int apartmentNum;
+	private int apartmentNum = 0;
 	private String city;
 	private String state;
 	private int zipcode;
-	private double homePhone;
-	private double workPhone;
+	private double homePhone = 0;
+	private double workPhone = 0;
 	
 	public Passenger( double SSN, String firstName, String lastName, int age, String street, int aptNum, String city, String state, int zipcode, double homePhone, double workPhone) {
 		this.SSN = SSN;

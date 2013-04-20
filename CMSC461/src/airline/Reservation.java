@@ -7,7 +7,7 @@ public class Reservation {
 	private String status;
 	private String seatType;
 	private double amountCharged;
-	private int numBags;
+	private int numBags = 0;
 	
 	
 	public Reservation(int id, int flightNum, double SSN, String status, String seatType, double amountCharged, int numBags) {
@@ -20,10 +20,9 @@ public class Reservation {
 		this.numBags = numBags;
 	}
 	
-	public Reservation(int flightNum, double SSN, String status, String seatType, double amountCharged, int numBags) {
+	public Reservation(int flightNum, double SSN, String seatType, double amountCharged, int numBags) {
 		this.flightNum = flightNum;
 		this.SSN = SSN;
-		this.status = status;
 		this.seatType = seatType;
 		this.amountCharged = amountCharged;
 		this.numBags = numBags;

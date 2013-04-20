@@ -2,6 +2,7 @@ package airline;
 
 import java.sql.*;
 import java.util.Date;
+import java.util.Calendar;
 
 public class Airline {
 	private Connection CONN = null;
@@ -29,12 +30,12 @@ public class Airline {
 					CONN.prepareStatement("INSERT into flights values (default, ?, ?, ?, ?, ?, ?)");
 			
 			//get date created, and set depart and arrival times
-			Date today = new Date(System.currentTimeMillis());
+			Calendar today = Calendar.getInstance();
 			Date depart = new Date(113, 4, 30, 13, 30 );
 			Date arrival = new Date(113, 5, 1, 13, 30 );
 			
 			//setting the parameters
-			insertStatement.setDate(1, new java.sql.Date(today.getYear(), today.getDay(), today.getMonth())); // date
+			insertStatement.setDate(1, new java.sql.Date(today.YEAR, today.DAY_OF_MONTH, today.MONTH)); // date
 			insertStatement.setString(2, "Boeing 737");														  // aircraft
 			insertStatement.setString(3, "Baltimore, MD");													  // source
 			insertStatement.setString(4, "Seatle, WA");														  // arrival
@@ -60,17 +61,17 @@ public class Airline {
 					CONN.prepareStatement("INSERT into passengers values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			
 			//setting the parameters
-			insertStatement.setDouble(1, 123456788);									// SSN
-			insertStatement.setString(2, "Little");									// first name
-			insertStatement.setString(3, "Fucker");									// last name
-			insertStatement.setInt(4, 21);											// age
-			insertStatement.setString(5, "1234 Road to No Where");					// street
-			insertStatement.setInt(6, 2);									        // apartment #
-			insertStatement.setString(7, "Baltimore");								// city
-			insertStatement.setString(8, "MD");										// state
-			insertStatement.setInt(9, 12345);										// zip_code
-			insertStatement.setDouble(10, 1555555555);							    // home phone #
-			insertStatement.setDouble(11, 1234567890);     							// work phone #
+			insertStatement.setDouble(1, p.getSSN());										// SSN
+			insertStatement.setString(2, p.getFirstName());									// first name
+			insertStatement.setString(3, p.getLastName());									// last name
+			insertStatement.setInt(4, p.getAge());											// age
+			insertStatement.setString(5, p.getStreet());									// street
+			insertStatement.setInt(6, p.getApartmentNum());									// apartment #
+			insertStatement.setString(7, p.getCity());										// city
+			insertStatement.setString(8, p.getState());										// state
+			insertStatement.setInt(9, p.getZipcode());										// zip_code
+			insertStatement.setDouble(10, p.getHomePhone());							    // home phone #
+			insertStatement.setDouble(11, p.getWorkPhone());     							// work phone #
 			
 			//insert into database
 			insertStatement.executeUpdate();
@@ -86,10 +87,10 @@ public class Airline {
 	/* @input: Passenger object to add to database
 	 * @output: Boolean for if adding the flight was successful
 	 */
-	public Boolean makeReservation(Reservation r){
+	public String makeReservation(Reservation r){
 		try {
 			PreparedStatement insertStatement = 
-					CONN.prepareStatement("INSERT into reservations values (default, ?, ?, ?, ?, ?, ?, default)");
+					CONN.prepareStatement("INSERT into reservations values (default, ?, ?, ?, ?, ?, ?, ?)");
 			
 			//check number booked for flight
 			String status = "waiting";
@@ -107,19 +108,19 @@ public class Airline {
 			insertStatement.setInt(1,  r.getFlightNum());								// flight number
 			insertStatement.setDouble(2, r.getSSN());									// SSN
 			insertStatement.setString(3, status);                                    	// status
-			insertStatement.setString(3, r.getSeatType());								// class
-			insertStatement.setInt(4, seatNum);											// seat #
-			insertStatement.setDouble(5, r.getAmountCharged());							// amount charged
+			insertStatement.setString(4, r.getSeatType());								// class
+			insertStatement.setInt(5, seatNum);											// seat #
+			insertStatement.setDouble(6, r.getAmountCharged());							// amount charged
+			insertStatement.setInt(7,  r.getNumBags());									// num bags
 			
 			
 			insertStatement.executeUpdate();
 			insertStatement.close();
+			return status;
 		} catch (Exception e) {
 			System.out.println("Failure: " + e.getMessage());
-			return false;
+			return null;
 		}
-		
-		return true;
 	}
 	
 	
@@ -138,10 +139,10 @@ public class Airline {
 	//-----------------------------------------------------Private Methods-----------------------------------------------------------------------
 	
 	//given the flight number, counts the number of confirmed reservations
-	private int countPassengers(int flightNum){
+	public int countPassengers(int flightNum){
 		int count = 0;
 		try {
-			PreparedStatement query = CONN.prepareStatement("SELECT count(*) FROM reservations WHERE flight_number = ?");
+			PreparedStatement query = CONN.prepareStatement("SELECT count(*) FROM reservations WHERE flight_number = ? and status = \"confirmed\" or status = \"checked-in\"");
 	
 			query.setInt(1, flightNum);
 			ResultSet result = query.executeQuery();
@@ -164,25 +165,15 @@ public class Airline {
 		
 //		System.out.println("initializing Airline");
 		Airline a = new Airline();
-//		System.out.println("Calling addFlight!");
-//		if (a.addFlight()){
-//			System.out.println(":)");
-//		} else {
-//			System.out.println(":(");
-//		}
-//		if (a.addPassenger()){
-//			System.out.println(":)");
-//		} else {
-//			System.out.println(":(");
-//		}
-//		if (a.makeReservation()){
-//			System.out.println(":)");
-//		} else {
-//			System.out.println(":(");
-//		}
+
+		Reservation r = new Reservation(1, 123456788, "first", 75.25, 2 );
 		
-		System.out.println(a.countPassengers(1));
-		
+		if (a.makeReservation(r) != null){
+			System.out.println(":)");
+		} else {
+			System.out.println(":(");
+		}
+			
 		//close connection to Database
 //		a.close();
 	}
