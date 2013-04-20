@@ -95,6 +95,7 @@ public class Airline {
 			String status = "waiting";
 			int seatNum = 0;
 			int numPass = countPassengers(r.getFlightNum());
+			
 			if (numPass <= CAPACITY){
 				status = "confirmed";
 				seatNum = numPass++;	
@@ -138,20 +139,20 @@ public class Airline {
 	
 	//given the flight number, counts the number of confirmed reservations
 	private int countPassengers(int flightNum){
-		int count = 1;
+		int count = 0;
+		try {
+			PreparedStatement query = CONN.prepareStatement("SELECT count(*) FROM reservations WHERE flight_number = ?");
+	
+			query.setInt(1, flightNum);
+			ResultSet result = query.executeQuery();
+			result.first();
+			count = result.getInt(1);
+		} catch (Exception e) {
+			System.out.println("Failure!: " + e.getMessage());
+		}
 		
 		return count;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	//----------------------------------------------------End Private Methods---------------------------------------------------------------------
@@ -162,7 +163,7 @@ public class Airline {
 	public static void main(String [ ] args){
 		
 //		System.out.println("initializing Airline");
-//		Airline a = new Airline();
+		Airline a = new Airline();
 //		System.out.println("Calling addFlight!");
 //		if (a.addFlight()){
 //			System.out.println(":)");
@@ -179,6 +180,8 @@ public class Airline {
 //		} else {
 //			System.out.println(":(");
 //		}
+		
+		System.out.println(a.countPassengers(1));
 		
 		//close connection to Database
 //		a.close();
