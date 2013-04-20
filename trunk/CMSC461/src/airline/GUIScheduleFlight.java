@@ -178,9 +178,9 @@ public class GUIScheduleFlight {
 					boolean flightStatus = airline.addFlight(flight);
 					
 					if (flightStatus == false)
-						lblFlightStatus.setText("Failed");
+						lblFlightStatusStatus.setText("Failed");
 					else
-						lblFlightStatus.setText("Created");
+						lblFlightStatusStatus.setText("Created");
 					
 					lblSubmitStatus.setText("");
 				}
