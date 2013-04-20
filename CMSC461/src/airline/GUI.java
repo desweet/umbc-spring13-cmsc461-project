@@ -1,6 +1,6 @@
 package airline;
 
-public class Frontend {
+public class GUI {
 
 	/**
 	 * @param args
