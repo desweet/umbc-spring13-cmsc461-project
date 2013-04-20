@@ -184,21 +184,45 @@ public class GUIBookTicket {
 		lblReservationStatus.setHorizontalAlignment(SwingConstants.CENTER);
 		frmBookTicket.getContentPane().add(lblReservationStatus);
 		
-		final JLabel tfReservationStatus = new JLabel("");
-		tfReservationStatus.setHorizontalAlignment(SwingConstants.CENTER);
-		frmBookTicket.getContentPane().add(tfReservationStatus);
+		final JLabel lblReservationStatusStatus = new JLabel("");
+		lblReservationStatusStatus.setHorizontalAlignment(SwingConstants.CENTER);
+		frmBookTicket.getContentPane().add(lblReservationStatusStatus);
+		
+		final JLabel lblSubmitStatus = new JLabel("");
 		
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				tfReservationStatus.setText(tfFlightClass.getText());
+				if (tfSSN.getText().trim().equals(""))
+					lblSubmitStatus.setText("Required field(s)");
+				else if (tfName.getText().trim().equals(""))
+					lblSubmitStatus.setText("Required field(s)");
+				else if (tfStreet.getText().trim().equals(""))
+					lblSubmitStatus.setText("Required field(s)");
+				else if (tfCity.getText().trim().equals(""))
+					lblSubmitStatus.setText("Required field(s)");
+				else if (tfState.getText().trim().equals(""))
+					lblSubmitStatus.setText("Required field(s)");
+				else if (tfZip.getText().trim().equals(""))
+					lblSubmitStatus.setText("Required field(s)");
+				else if (tfPhoneHome.getText().trim().equals("") && tfPhoneOffice.getText().trim().equals(""))
+					lblSubmitStatus.setText("Required field(s)");
+				else if (tfEmail.getText().trim().equals(""))
+					lblSubmitStatus.setText("Required field(s)");
+				else if (tfFlightNumber.getText().trim().equals(""))
+					lblSubmitStatus.setText("Required field(s)");
+				else if (tfFlightClass.getText().trim().equals(""))
+					lblSubmitStatus.setText("Required field(s)");
+				else if (tfAmountPaid.getText().trim().equals(""))
+					lblSubmitStatus.setText("Required field(s)");
+				else
+					lblSubmitStatus.setText("Successfully submitted");
 			}
 		});
 		frmBookTicket.getContentPane().add(btnSubmit);
 		
-		JLabel tfSubmitStatus = new JLabel("");
-		tfSubmitStatus.setHorizontalAlignment(SwingConstants.CENTER);
-		frmBookTicket.getContentPane().add(tfSubmitStatus);
+		lblSubmitStatus.setHorizontalAlignment(SwingConstants.CENTER);
+		frmBookTicket.getContentPane().add(lblSubmitStatus);
 	}
 
 }
