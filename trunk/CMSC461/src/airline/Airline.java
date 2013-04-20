@@ -36,12 +36,13 @@ public class Airline {
 			//Calendar today = Calendar.getInstance();
 			
 			//setting the parameters
-			insertStatement.setDate(1, new java.sql.Date(Calendar.YEAR, Calendar.DAY_OF_MONTH, Calendar.MONTH)); 	  // date
-			insertStatement.setString(2, f.getAircraftType());														  // aircraft
-			insertStatement.setString(3, f.getSource());													  		  // source
-			insertStatement.setString(4, f.getDestination());														  // arrival
-			insertStatement.setTimestamp(5, new Timestamp(f.getDeparture().getTime()));						  		  // depart time
-			insertStatement.setTimestamp(6, new Timestamp(f.getArrival().getTime()));						  		  // arrival time
+			insertStatement.setInt(1, f.getFlightNumber());
+			insertStatement.setDate(2, new java.sql.Date(Calendar.YEAR, Calendar.DAY_OF_MONTH, Calendar.MONTH)); 	  // date
+			insertStatement.setString(3, f.getAircraftType());														  // aircraft
+			insertStatement.setString(4, f.getSource());													  		  // source
+			insertStatement.setString(5, f.getDestination());														  // arrival
+			insertStatement.setTimestamp(6, new Timestamp(f.getDeparture().getTime()));						  		  // depart time
+			insertStatement.setTimestamp(7, new Timestamp(f.getArrival().getTime()));						  		  // arrival time
 			
 			//insert into database
 			insertStatement.executeUpdate();
@@ -159,7 +160,10 @@ public class Airline {
 		return count;
 	}
 	
-	//return array of all the current flight numbers
+	/*************************************************************************************************************************
+	 * @input none
+	 * @output an ArrayList<String> of all the flight numbers in the database
+	 *************************************************************************************************************************/
 	public ArrayList<String> getFlightNumbers( ){
 		try {
 			Statement query = CONN.createStatement();
