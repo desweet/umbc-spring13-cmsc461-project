@@ -37,7 +37,7 @@ public class Airline {
 			
 			//setting the parameters
 			insertStatement.setInt(1, f.getFlightNumber());
-			insertStatement.setDate(2, new java.sql.Date(Calendar.YEAR, Calendar.DAY_OF_MONTH, Calendar.MONTH)); 	  // date
+			insertStatement.setDate(2, new java.sql.Date(Calendar.YEAR - 1900, Calendar.DAY_OF_MONTH, Calendar.MONTH - 1)); 	  // date
 			insertStatement.setString(3, f.getAircraftType());														  // aircraft
 			insertStatement.setString(4, f.getSource());													  		  // source
 			insertStatement.setString(5, f.getDestination());														  // arrival
@@ -141,8 +141,8 @@ public class Airline {
 	}
 	
 	/***********************************************************************************************************************
-	 * @input a flight number
-	 * @output number of confirmed reservations for that flight
+	 * @input: a flight number
+	 * @output: number of confirmed reservations for that flight
 	 ***********************************************************************************************************************/
 	public int countPassengers(int flightNum){
 		int count = 0;
@@ -161,8 +161,8 @@ public class Airline {
 	}
 	
 	/*************************************************************************************************************************
-	 * @input none
-	 * @output an ArrayList<String> of all the flight numbers in the database
+	 * @input: none
+	 * @output: an ArrayList<String> of all the flight numbers in the database
 	 *************************************************************************************************************************/
 	public ArrayList<String> getFlightNumbers( ){
 		try {
