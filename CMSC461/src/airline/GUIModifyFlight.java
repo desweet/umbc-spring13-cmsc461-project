@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.JButton;
 
 public class GUIModifyFlight {
 
@@ -15,6 +16,8 @@ public class GUIModifyFlight {
 	private JTextField textField_1;
 	private JLabel lblArrivalDatetime;
 	private JTextField textField_2;
+	private JButton btnSubmit;
+	private JLabel label;
 
 	/**
 	 * Launch the application.
@@ -46,7 +49,7 @@ public class GUIModifyFlight {
 		frmModifyFlight = new JFrame();
 		frmModifyFlight.setResizable(false);
 		frmModifyFlight.setTitle("Modify Flight");
-		frmModifyFlight.setBounds(100, 100, 300, 125);
+		frmModifyFlight.setBounds(100, 100, 300, 150);
 		frmModifyFlight.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmModifyFlight.setLocationRelativeTo(null);
 		frmModifyFlight.getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
@@ -77,6 +80,13 @@ public class GUIModifyFlight {
 		textField_2.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_2.setColumns(10);
 		frmModifyFlight.getContentPane().add(textField_2);
+		
+		btnSubmit = new JButton("Submit");
+		frmModifyFlight.getContentPane().add(btnSubmit);
+		
+		label = new JLabel("");
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		frmModifyFlight.getContentPane().add(label);
 	}
 
 }

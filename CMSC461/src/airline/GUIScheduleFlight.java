@@ -17,6 +17,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTable;
 import javax.swing.JList;
 import javax.swing.JSeparator;
+import javax.swing.JButton;
 
 public class GUIScheduleFlight {
 
@@ -27,6 +28,8 @@ public class GUIScheduleFlight {
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
+	private JButton btnSubmit;
+	private JLabel label;
 
 	/**
 	 * Launch the application.
@@ -116,6 +119,13 @@ public class GUIScheduleFlight {
 		textField_5.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_5.setColumns(10);
 		frmScheduleFlight.getContentPane().add(textField_5);
+		
+		btnSubmit = new JButton("Submit");
+		frmScheduleFlight.getContentPane().add(btnSubmit);
+		
+		label = new JLabel("");
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		frmScheduleFlight.getContentPane().add(label);
 	}
 
 }

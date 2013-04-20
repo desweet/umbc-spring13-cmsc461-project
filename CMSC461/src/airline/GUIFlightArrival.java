@@ -10,6 +10,9 @@ import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JList;
 import javax.swing.JButton;
+import java.awt.Component;
+import java.awt.Rectangle;
+import java.awt.Point;
 
 public class GUIFlightArrival {
 
@@ -21,6 +24,7 @@ public class GUIFlightArrival {
 	private JLabel lblTimeTaken;
 	private JLabel label_2;
 	private JButton btnGetFlightInfo;
+	private JLabel label_4;
 
 	/**
 	 * Launch the application.
@@ -52,7 +56,7 @@ public class GUIFlightArrival {
 		frmFlightArrival = new JFrame();
 		frmFlightArrival.setResizable(false);
 		frmFlightArrival.setTitle("Flight Arrival");
-		frmFlightArrival.setBounds(100, 100, 200, 125);
+		frmFlightArrival.setBounds(100, 100, 200, 160);
 		frmFlightArrival.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmFlightArrival.setLocationRelativeTo(null);
 		frmFlightArrival.getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
@@ -90,8 +94,13 @@ public class GUIFlightArrival {
 		label_2.setHorizontalAlignment(SwingConstants.CENTER);
 		frmFlightArrival.getContentPane().add(label_2);
 		
-		btnGetFlightInfo = new JButton("Get Flight Stats");
+		btnGetFlightInfo = new JButton("Get Stats");
+		btnGetFlightInfo.setHorizontalTextPosition(SwingConstants.CENTER);
 		frmFlightArrival.getContentPane().add(btnGetFlightInfo);
+		
+		label_4 = new JLabel("");
+		label_4.setHorizontalAlignment(SwingConstants.CENTER);
+		frmFlightArrival.getContentPane().add(label_4);
 	}
 
 }
