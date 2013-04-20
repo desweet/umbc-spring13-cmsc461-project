@@ -4,9 +4,9 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
-public class GUI {
+public class GUIBookTicket {
 
-	private JFrame frmAirlineManager;
+	JFrame frmBookTicket;
 
 	/**
 	 * Launch the application.
@@ -15,8 +15,8 @@ public class GUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GUI window = new GUI();
-					window.frmAirlineManager.setVisible(true);
+					GUIBookTicket window = new GUIBookTicket();
+					window.frmBookTicket.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -27,7 +27,7 @@ public class GUI {
 	/**
 	 * Create the application.
 	 */
-	public GUI() {
+	public GUIBookTicket() {
 		initialize();
 	}
 
@@ -35,10 +35,12 @@ public class GUI {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmAirlineManager = new JFrame();
-		frmAirlineManager.setTitle("Airline Manager");
-		frmAirlineManager.setBounds(100, 100, 450, 300);
-		frmAirlineManager.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmBookTicket = new JFrame();
+		frmBookTicket.setResizable(false);
+		frmBookTicket.setTitle("Book Ticket");
+		frmBookTicket.setBounds(100, 100, 450, 300);
+		frmBookTicket.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmBookTicket.setLocationRelativeTo(null);
 	}
 
 }
