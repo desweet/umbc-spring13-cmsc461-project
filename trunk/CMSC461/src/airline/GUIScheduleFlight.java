@@ -5,18 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
-import java.awt.GridBagLayout;
-import javax.swing.SpringLayout;
 import javax.swing.JTextField;
-import net.miginfocom.swing.MigLayout;
-import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
-import javax.swing.JEditorPane;
 import javax.swing.SwingConstants;
-import javax.swing.JTextArea;
-import javax.swing.JTable;
-import javax.swing.JList;
-import javax.swing.JSeparator;
 import javax.swing.JButton;
 
 public class GUIScheduleFlight {
