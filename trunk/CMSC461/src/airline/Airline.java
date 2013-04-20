@@ -35,11 +35,11 @@ public class Airline {
 			
 			//setting the parameters
 			insertStatement.setDate(1, new java.sql.Date(Calendar.YEAR, Calendar.DAY_OF_MONTH, Calendar.MONTH)); 	  // date
-			insertStatement.setString(2, "Boeing 737");														  // aircraft
-			insertStatement.setString(3, "Baltimore, MD");													  // source
-			insertStatement.setString(4, "Seatle, WA");														  // arrival
-			insertStatement.setTimestamp(5, new Timestamp(f.getDeparture().getTime()));						  // depart time
-			insertStatement.setTimestamp(6, new Timestamp(f.getArrival().getTime()));						  // arrival time
+			insertStatement.setString(2, f.getAircraftType());														  // aircraft
+			insertStatement.setString(3, f.getSource());													  		  // source
+			insertStatement.setString(4, f.getDestination());														  	 	  // arrival
+			insertStatement.setTimestamp(5, new Timestamp(f.getDeparture().getTime()));						  		  // depart time
+			insertStatement.setTimestamp(6, new Timestamp(f.getArrival().getTime()));						  		  // arrival time
 			
 			//insert into database
 			insertStatement.executeUpdate();
