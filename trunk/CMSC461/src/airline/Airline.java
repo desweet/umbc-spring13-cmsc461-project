@@ -3,6 +3,7 @@ package airline;
 import java.sql.*;
 import java.util.Date;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class Airline {
 	private Connection CONN = null;
@@ -16,7 +17,7 @@ public class Airline {
 		// establish connection to database to be used for every method
 		CONN = DriverManager.getConnection("jdbc:mysql://mysql.desweet.com/cmsc461?" + "user=mpod&password=weasel");
 		} catch (Exception e) {
-			System.out.println("Failure!: " + e.getMessage());
+			System.out.println("Failure: " + e.getMessage());
 		}
 	}
 	
@@ -30,23 +31,21 @@ public class Airline {
 					CONN.prepareStatement("INSERT into flights values (default, ?, ?, ?, ?, ?, ?)");
 			
 			//get date created, and set depart and arrival times
-			Calendar today = Calendar.getInstance();
-			Date depart = new Date(113, 4, 30, 13, 30 );
-			Date arrival = new Date(113, 5, 1, 13, 30 );
+			//Calendar today = Calendar.getInstance();
 			
 			//setting the parameters
-			insertStatement.setDate(1, new java.sql.Date(today.YEAR, today.DAY_OF_MONTH, today.MONTH)); // date
+			insertStatement.setDate(1, new java.sql.Date(Calendar.YEAR, Calendar.DAY_OF_MONTH, Calendar.MONTH)); 	  // date
 			insertStatement.setString(2, "Boeing 737");														  // aircraft
 			insertStatement.setString(3, "Baltimore, MD");													  // source
 			insertStatement.setString(4, "Seatle, WA");														  // arrival
-			insertStatement.setTimestamp(5, new Timestamp(depart.getTime()));								  // depart time
-			insertStatement.setTimestamp(6, new Timestamp(arrival.getTime()));								  // arrival time
+			insertStatement.setTimestamp(5, new Timestamp(f.getDeparture().getTime()));						  // depart time
+			insertStatement.setTimestamp(6, new Timestamp(f.getArrival().getTime()));						  // arrival time
 			
 			//insert into database
 			insertStatement.executeUpdate();
 			insertStatement.close();
 		} catch (Exception e){
-			System.out.println("Failure!: " + e.getMessage());
+			System.out.println("Failure: " + e.getMessage());
 			return false;
 		}
 		return true;
@@ -77,7 +76,7 @@ public class Airline {
 			insertStatement.executeUpdate();
 			insertStatement.close();
 		} catch (Exception e) {
-			System.out.println("Failure!: " + e.getMessage());
+			System.out.println("Failure: " + e.getMessage());
 			return false;
 		}
 		
@@ -97,12 +96,11 @@ public class Airline {
 			int seatNum = 0;
 			int numPass = countPassengers(r.getFlightNum());
 			
+			//calculate seat number
 			if (numPass <= CAPACITY){
 				status = "confirmed";
 				seatNum = numPass++;	
 			}
-			
-			//calculate seat number
 			
 			//setting the parameters
 			insertStatement.setInt(1,  r.getFlightNum());								// flight number
@@ -135,9 +133,6 @@ public class Airline {
 		}
 	}
 	
-	
-	//-----------------------------------------------------Private Methods-----------------------------------------------------------------------
-	
 	//given the flight number, counts the number of confirmed reservations
 	public int countPassengers(int flightNum){
 		int count = 0;
@@ -149,11 +144,16 @@ public class Airline {
 			result.first();
 			count = result.getInt(1);
 		} catch (Exception e) {
-			System.out.println("Failure!: " + e.getMessage());
+			System.out.println("Failure! " + e.getMessage());
 		}
 		
 		return count;
 	}
+	
+	
+	//-----------------------------------------------------Private Methods-----------------------------------------------------------------------
+	
+	
 	
 	
 	//----------------------------------------------------End Private Methods---------------------------------------------------------------------
@@ -161,21 +161,21 @@ public class Airline {
 	
 	
 	// main for testing
-	public static void main(String [ ] args){
-		
-//		System.out.println("initializing Airline");
-		Airline a = new Airline();
-
-		Reservation r = new Reservation(1, 123456788, "first", 75.25, 2 );
-		
-		if (a.makeReservation(r) != null){
-			System.out.println(":)");
-		} else {
-			System.out.println(":(");
-		}
-			
-		//close connection to Database
-//		a.close();
-	}
+//	public static void main(String [ ] args){
+//		
+////		System.out.println("initializing Airline");
+//		Airline a = new Airline();
+//
+//		Reservation r = new Reservation(1, 123456788, "first", 75.25, 2 );
+//		
+//		if (a.makeReservation(r) != null){
+//			System.out.println(":)");
+//		} else {
+//			System.out.println(":(");
+//		}
+//			
+//		//close connection to Database
+////		a.close();
+//	}
 	
 }
