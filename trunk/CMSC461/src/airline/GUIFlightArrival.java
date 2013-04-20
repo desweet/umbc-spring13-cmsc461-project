@@ -17,14 +17,14 @@ import java.awt.Point;
 public class GUIFlightArrival {
 
 	JFrame frmFlightArrival;
-	private JTextField textField;
-	private JLabel label_1;
+	private JTextField tfFlightNumber;
+	private JLabel lblPassengersStatus;
 	private JLabel lblStops;
-	private JLabel label_3;
+	private JLabel lblStopsStatus;
 	private JLabel lblTimeTaken;
-	private JLabel label_2;
-	private JButton btnGetFlightInfo;
-	private JLabel label_4;
+	private JLabel lblTimeTakenStatus;
+	private JButton btnGetStats;
+	private JLabel lblGetStatsStatus;
 
 	/**
 	 * Launch the application.
@@ -61,46 +61,46 @@ public class GUIFlightArrival {
 		frmFlightArrival.setLocationRelativeTo(null);
 		frmFlightArrival.getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JLabel label = new JLabel("Flight number:");
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		frmFlightArrival.getContentPane().add(label);
+		JLabel lblFlightNumber = new JLabel("Flight number:");
+		lblFlightNumber.setHorizontalAlignment(SwingConstants.CENTER);
+		frmFlightArrival.getContentPane().add(lblFlightNumber);
 		
-		textField = new JTextField();
-		textField.setHorizontalAlignment(SwingConstants.CENTER);
-		textField.setColumns(10);
-		frmFlightArrival.getContentPane().add(textField);
+		tfFlightNumber = new JTextField();
+		tfFlightNumber.setHorizontalAlignment(SwingConstants.CENTER);
+		tfFlightNumber.setColumns(10);
+		frmFlightArrival.getContentPane().add(tfFlightNumber);
 		
-		JLabel lblNumberOfPassengers = new JLabel("Passengers:");
-		lblNumberOfPassengers.setHorizontalAlignment(SwingConstants.CENTER);
-		frmFlightArrival.getContentPane().add(lblNumberOfPassengers);
+		JLabel lblPassengers = new JLabel("Passengers:");
+		lblPassengers.setHorizontalAlignment(SwingConstants.CENTER);
+		frmFlightArrival.getContentPane().add(lblPassengers);
 		
-		label_1 = new JLabel("");
-		label_1.setHorizontalAlignment(SwingConstants.CENTER);
-		frmFlightArrival.getContentPane().add(label_1);
+		lblPassengersStatus = new JLabel("");
+		lblPassengersStatus.setHorizontalAlignment(SwingConstants.CENTER);
+		frmFlightArrival.getContentPane().add(lblPassengersStatus);
 		
 		lblStops = new JLabel("Stops:");
 		lblStops.setHorizontalAlignment(SwingConstants.CENTER);
 		frmFlightArrival.getContentPane().add(lblStops);
 		
-		label_3 = new JLabel("");
-		label_3.setHorizontalAlignment(SwingConstants.CENTER);
-		frmFlightArrival.getContentPane().add(label_3);
+		lblStopsStatus = new JLabel("");
+		lblStopsStatus.setHorizontalAlignment(SwingConstants.CENTER);
+		frmFlightArrival.getContentPane().add(lblStopsStatus);
 		
 		lblTimeTaken = new JLabel("Time taken:");
 		lblTimeTaken.setHorizontalAlignment(SwingConstants.CENTER);
 		frmFlightArrival.getContentPane().add(lblTimeTaken);
 		
-		label_2 = new JLabel("");
-		label_2.setHorizontalAlignment(SwingConstants.CENTER);
-		frmFlightArrival.getContentPane().add(label_2);
+		lblTimeTakenStatus = new JLabel("");
+		lblTimeTakenStatus.setHorizontalAlignment(SwingConstants.CENTER);
+		frmFlightArrival.getContentPane().add(lblTimeTakenStatus);
 		
-		btnGetFlightInfo = new JButton("Get Stats");
-		btnGetFlightInfo.setHorizontalTextPosition(SwingConstants.CENTER);
-		frmFlightArrival.getContentPane().add(btnGetFlightInfo);
+		btnGetStats = new JButton("Get Stats");
+		btnGetStats.setHorizontalTextPosition(SwingConstants.CENTER);
+		frmFlightArrival.getContentPane().add(btnGetStats);
 		
-		label_4 = new JLabel("");
-		label_4.setHorizontalAlignment(SwingConstants.CENTER);
-		frmFlightArrival.getContentPane().add(label_4);
+		lblGetStatsStatus = new JLabel("");
+		lblGetStatsStatus.setHorizontalAlignment(SwingConstants.CENTER);
+		frmFlightArrival.getContentPane().add(lblGetStatsStatus);
 	}
 
 }
