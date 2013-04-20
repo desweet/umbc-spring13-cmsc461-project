@@ -1,4 +1,4 @@
-package Airline;
+package airline;
 
 public class Frontend {
 
