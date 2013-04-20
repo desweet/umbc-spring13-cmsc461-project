@@ -5,9 +5,7 @@ import java.util.Date;
 
 public class Airline {
 	private Connection CONN = null;
-	private Statement statement = null;
-	private PreparedStatement preparedStatement = null;
-	private ResultSet resultset = null;
+	private int CAPACITY = 100;
 	
 	public Airline ( ){
 		try {
@@ -91,30 +89,32 @@ public class Airline {
 	public Boolean makeReservation( ){
 		try {
 			PreparedStatement insertStatement = 
-					CONN.prepareStatement("INSERT into reservations values (deafult, ?, ?, default, ?, ?, ?, ?)");
+					CONN.prepareStatement("INSERT into reservations values (default, ?, ?, ?, ?, ?, ?, ?)");
 			
 			//check number booked for flight
+			String status = (countPassengers(1) <= CAPACITY) ? "waiting" : "confirmed";
 			
 			//setting the parameters
 			insertStatement.setInt(1,  1);											// flight number
 			insertStatement.setInt(2, 123456789);									// SSN
+			insertStatement.setString(3, status);                                    // status
 			insertStatement.setString(3, "first");									// class
 			insertStatement.setInt(4, 3);											// seat #
 			insertStatement.setDouble(5, 60.43);									// amount charged
-			insertStatement.setInt(6, 3);								// num bags
+			insertStatement.setInt(6, 3);											// num bags
 			
 			insertStatement.executeUpdate();
 			insertStatement.close();
 		} catch (Exception e) {
-			
+			System.out.println("Failure: " + e.getMessage());
+			return false;
 		}
 		
 		return true;
 	}
 	
 	
-	
-	
+	//close connection to database
 	public void close(){
 		try {
 			if (CONN != null){
@@ -124,6 +124,31 @@ public class Airline {
 			System.out.println(e.getMessage());
 		}
 	}
+	
+	
+	//-----------------------------------------------------Private Methods-----------------------------------------------------------------------
+	
+	//given the flight number, counts the number of confirmed reservations
+	private int countPassengers(int flightNum){
+		int count = 0;
+		
+		return count;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//----------------------------------------------------End Private Methods---------------------------------------------------------------------
+	
+	
 	
 	// main for testing
 	public static void main(String [ ] args){
