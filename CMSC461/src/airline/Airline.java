@@ -23,7 +23,7 @@ public class Airline {
 	 * @output: Boolean for if adding the flight was successful
 	 */
 	@SuppressWarnings("deprecation")
-	public Boolean addFlight(){
+	public Boolean addFlight(Flight f){
 		try {
 			PreparedStatement insertStatement = 
 					CONN.prepareStatement("INSERT into flights values (default, ?, ?, ?, ?, ?, ?)");
@@ -54,7 +54,7 @@ public class Airline {
 	/* @input: Passenger object to add to database
 	 * @output: Boolean for if adding the flight was successful
 	 */
-	public Boolean addPassenger(){
+	public Boolean addPassenger(Passenger p){
 		try {
 			PreparedStatement insertStatement = 
 					CONN.prepareStatement("INSERT into passengers values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -86,22 +86,30 @@ public class Airline {
 	/* @input: Passenger object to add to database
 	 * @output: Boolean for if adding the flight was successful
 	 */
-	public Boolean makeReservation( ){
+	public Boolean makeReservation(Reservation r){
 		try {
 			PreparedStatement insertStatement = 
-					CONN.prepareStatement("INSERT into reservations values (default, ?, ?, ?, ?, ?, ?, ?)");
+					CONN.prepareStatement("INSERT into reservations values (default, ?, ?, ?, ?, ?, ?, default)");
 			
 			//check number booked for flight
-			String status = (countPassengers(1) <= CAPACITY) ? "waiting" : "confirmed";
+			String status = "waiting";
+			int seatNum = 0;
+			int numPass = countPassengers(r.getFlightNum());
+			if (numPass <= CAPACITY){
+				status = "confirmed";
+				seatNum = numPass++;	
+			}
+			
+			//calculate seat number
 			
 			//setting the parameters
-			insertStatement.setInt(1,  1);											// flight number
-			insertStatement.setInt(2, 123456789);									// SSN
-			insertStatement.setString(3, status);                                    // status
-			insertStatement.setString(3, "first");									// class
-			insertStatement.setInt(4, 3);											// seat #
-			insertStatement.setDouble(5, 60.43);									// amount charged
-			insertStatement.setInt(6, 3);											// num bags
+			insertStatement.setInt(1,  r.getFlightNum());								// flight number
+			insertStatement.setDouble(2, r.getSSN());									// SSN
+			insertStatement.setString(3, status);                                    	// status
+			insertStatement.setString(3, r.getSeatType());								// class
+			insertStatement.setInt(4, seatNum);											// seat #
+			insertStatement.setDouble(5, r.getAmountCharged());							// amount charged
+			
 			
 			insertStatement.executeUpdate();
 			insertStatement.close();
@@ -130,7 +138,7 @@ public class Airline {
 	
 	//given the flight number, counts the number of confirmed reservations
 	private int countPassengers(int flightNum){
-		int count = 0;
+		int count = 1;
 		
 		return count;
 	}
@@ -152,29 +160,28 @@ public class Airline {
 	
 	// main for testing
 	public static void main(String [ ] args){
-System.out.println("TEST");
 		
-		System.out.println("initializing Airline");
-		Airline a = new Airline();
-		System.out.println("Calling addFlight!");
-		if (a.addFlight()){
-			System.out.println(":)");
-		} else {
-			System.out.println(":(");
-		}
-		if (a.addPassenger()){
-			System.out.println(":)");
-		} else {
-			System.out.println(":(");
-		}
-		if (a.makeReservation()){
-			System.out.println(":)");
-		} else {
-			System.out.println(":(");
-		}
+//		System.out.println("initializing Airline");
+//		Airline a = new Airline();
+//		System.out.println("Calling addFlight!");
+//		if (a.addFlight()){
+//			System.out.println(":)");
+//		} else {
+//			System.out.println(":(");
+//		}
+//		if (a.addPassenger()){
+//			System.out.println(":)");
+//		} else {
+//			System.out.println(":(");
+//		}
+//		if (a.makeReservation()){
+//			System.out.println(":)");
+//		} else {
+//			System.out.println(":(");
+//		}
 		
 		//close connection to Database
-		a.close();
+//		a.close();
 	}
 	
 }

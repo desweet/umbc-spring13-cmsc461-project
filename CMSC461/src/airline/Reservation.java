@@ -6,17 +6,26 @@ public class Reservation {
 	private double SSN;
 	private String status;
 	private String seatType;
-	private double amountCharge;
+	private double amountCharged;
 	private int numBags;
 	
 	
-	public Reservation(int id, int flightNum, double SSN, String status, String seatType, double amountCharge, int numBags) {
+	public Reservation(int id, int flightNum, double SSN, String status, String seatType, double amountCharged, int numBags) {
 		this.id = id;
 		this.flightNum = flightNum;
 		this.SSN = SSN;
 		this.status = status;
 		this.seatType = seatType;
-		this.amountCharge = amountCharge;
+		this.amountCharged = amountCharged;
+		this.numBags = numBags;
+	}
+	
+	public Reservation(int flightNum, double SSN, String status, String seatType, double amountCharged, int numBags) {
+		this.flightNum = flightNum;
+		this.SSN = SSN;
+		this.status = status;
+		this.seatType = seatType;
+		this.amountCharged = amountCharged;
 		this.numBags = numBags;
 	}
 
@@ -71,13 +80,13 @@ public class Reservation {
 	}
 
 
-	public double getAmountCharge() {
-		return amountCharge;
+	public double getAmountCharged() {
+		return amountCharged;
 	}
 
 
-	public void setAmountCharge(double amountCharge) {
-		this.amountCharge = amountCharge;
+	public void setAmountCharge(double amountCharged) {
+		this.amountCharged = amountCharged;
 	}
 
 
