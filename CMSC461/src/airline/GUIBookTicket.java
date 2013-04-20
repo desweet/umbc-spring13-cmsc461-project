@@ -289,7 +289,7 @@ public class GUIBookTicket {
 														phoneOffice);
 					
 					int flightNumber = Integer.parseInt(tfFlightNumber.getText());
-					String flightClass = String.valueOf(cbFlightClass.getSelectedItem());
+					String flightClass = String.valueOf(cbFlightClass.getSelectedItem()).toLowerCase();
 					double amountPaid = Double.parseDouble(tfAmountPaid.getText());
 					int bags = 0;
 					
