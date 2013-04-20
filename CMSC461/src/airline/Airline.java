@@ -87,10 +87,11 @@ public class Airline {
 	/* @input: Passenger object to add to database
 	 * @output: Boolean for if adding the flight was successful
 	 */
+	@SuppressWarnings("deprecation")
 	public String makeReservation(Reservation r){
 		try {
 			PreparedStatement insertStatement = 
-					CONN.prepareStatement("INSERT into reservations values (?, ?, ?, ?, ?, ?, ?)");
+					CONN.prepareStatement("INSERT into reservations values (?, ?, ?, ?, ?, ?, ?, ?)");
 			
 			//check number booked for flight
 			String status = "waiting";
@@ -111,6 +112,7 @@ public class Airline {
 			insertStatement.setInt(5, seatNum);											// seat #
 			insertStatement.setDouble(6, r.getAmountCharged());							// amount charged
 			insertStatement.setInt(7,  r.getNumBags());									// num bags
+			insertStatement.setDate(8, new java.sql.Date(Calendar.YEAR, Calendar.DAY_OF_MONTH, Calendar.MONTH)); 	  // date
 			
 			
 			insertStatement.executeUpdate();
@@ -190,14 +192,15 @@ public class Airline {
 //		System.out.println("initializing Airline");
 		Airline a = new Airline();
 
-		Reservation r = new Reservation(1, 123456788, "first", 75.25, 2 );
+		
 
-		ArrayList<String> fn = a.getFlightNumbers();
+//		ArrayList<String> fn = a.getFlightNumbers();
+//		
+//		for(int i = 0; i < fn.size(); i++){
+//			System.out.println(fn.get(i));
+//		}
 		
-		for(int i = 0; i < fn.size(); i++){
-			System.out.println(fn.get(i));
-		}
-		
+//		Reservation r = new Reservation(1, 123456788, "first", 75.25, 2 );
 //		if (a.makeReservation(r) != null){
 //			System.out.println(":)");
 //		} else {

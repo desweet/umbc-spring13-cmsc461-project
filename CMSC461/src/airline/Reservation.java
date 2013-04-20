@@ -1,5 +1,7 @@
 package airline;
 
+import java.util.Date;
+
 public class Reservation {
 	private int id;
 	private int flightNum;
@@ -8,9 +10,10 @@ public class Reservation {
 	private String seatType;
 	private double amountCharged;
 	private int numBags = 0;
+	private Date date;
 	
 	
-	public Reservation(int id, int flightNum, double SSN, String status, String seatType, double amountCharged, int numBags) {
+	public Reservation(int id, int flightNum, double SSN, String status, String seatType, double amountCharged, int numBags, Date date) {
 		this.id = id;
 		this.flightNum = flightNum;
 		this.SSN = SSN;
@@ -18,6 +21,7 @@ public class Reservation {
 		this.seatType = seatType;
 		this.amountCharged = amountCharged;
 		this.numBags = numBags;
+		this.date = date;
 	}
 	
 	public Reservation(int flightNum, double SSN, String seatType, double amountCharged, int numBags) {
@@ -28,6 +32,14 @@ public class Reservation {
 		this.numBags = numBags;
 	}
 
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
 
 	public int getId() {
 		return id;
