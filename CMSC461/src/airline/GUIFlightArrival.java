@@ -7,12 +7,7 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
-import javax.swing.JTextArea;
-import javax.swing.JList;
 import javax.swing.JButton;
-import java.awt.Component;
-import java.awt.Rectangle;
-import java.awt.Point;
 
 public class GUIFlightArrival {
 
