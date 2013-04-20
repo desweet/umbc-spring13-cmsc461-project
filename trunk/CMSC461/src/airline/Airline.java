@@ -17,14 +17,33 @@ public class Airline {
 		// establish connection to database to be used for every method
 		CONN = DriverManager.getConnection("jdbc:mysql://localhost/airline?" + "user=root&password=password");
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			System.out.println("Failure!: " + e.getMessage());
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	public Boolean addFlight(){
 		System.out.println("Adding a flight!");
 		try {
-			PreparedStatement insertStatement = CONN.prepareStatement("INSERT into AIRLINE.FLIGHTS values (default, ?, ?, ?, ?, ?, ?");
+			PreparedStatement insertStatement = 
+					CONN.prepareStatement("INSERT into AIRLINE.FLIGHTS values (default, ?, ?, ?, ?, ?, ?)");
+			
+			//get date created, and set depart and arrival times
+			Date today = new Date();
+			Date depart = new Date(2013, 5, 30, 13, 30 );
+			Date arrival = new Date(2013, 6, 1, 13, 30 );
+			
+			//setting the parameters
+			insertStatement.setDate(1, new java.sql.Date(today.getYear(), today.getDay(), today.getMonth()));
+			insertStatement.setString(2, "Boeing 737");
+			insertStatement.setString(3, "Baltimore, MD");
+			insertStatement.setString(4, "Seatle, WA");
+			insertStatement.setTimestamp(5, new Timestamp(depart.getTime()));
+			insertStatement.setTimestamp(6, new Timestamp(arrival.getTime()));
+			
+			//insert into database
+			insertStatement.executeUpdate();
+			
 		} catch (Exception e){
 			System.out.println(e.getMessage());
 			return false;
@@ -49,6 +68,5 @@ public class Airline {
 			System.out.println(e.getMessage());
 		}
 	}
-	
 	
 }
