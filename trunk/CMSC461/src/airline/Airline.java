@@ -1,9 +1,10 @@
 package airline;
 
 import java.sql.*;
-import java.util.Date;
+//import java.util.Date;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
+//import java.util.GregorianCalendar;
+import java.util.ArrayList;
 
 public class Airline {
 	private Connection CONN = null;
@@ -37,7 +38,7 @@ public class Airline {
 			insertStatement.setDate(1, new java.sql.Date(Calendar.YEAR, Calendar.DAY_OF_MONTH, Calendar.MONTH)); 	  // date
 			insertStatement.setString(2, f.getAircraftType());														  // aircraft
 			insertStatement.setString(3, f.getSource());													  		  // source
-			insertStatement.setString(4, f.getDestination());														  	 	  // arrival
+			insertStatement.setString(4, f.getDestination());														  // arrival
 			insertStatement.setTimestamp(5, new Timestamp(f.getDeparture().getTime()));						  		  // depart time
 			insertStatement.setTimestamp(6, new Timestamp(f.getArrival().getTime()));						  		  // arrival time
 			
@@ -89,7 +90,7 @@ public class Airline {
 	public String makeReservation(Reservation r){
 		try {
 			PreparedStatement insertStatement = 
-					CONN.prepareStatement("INSERT into reservations values (default, ?, ?, ?, ?, ?, ?, ?)");
+					CONN.prepareStatement("INSERT into reservations values (?, ?, ?, ?, ?, ?, ?)");
 			
 			//check number booked for flight
 			String status = "waiting";
@@ -150,6 +151,24 @@ public class Airline {
 		return count;
 	}
 	
+	//return array of all the current flight numbers
+	public ArrayList<Integer> getFlightNumbers( ){
+		try {
+			Statement query = CONN.createStatement();;
+			ResultSet result = query.executeQuery("SELECT flight_number FROM flights");
+			
+			ArrayList<Integer> flightNumbers = new ArrayList<Integer>();
+			flightNumbers.add(result.getInt(1));
+			while (result.next()){
+				flightNumbers.add(result.getInt(1));
+			}
+			return flightNumbers;
+		} catch (Exception e) {
+			System.out.println("Failure: " + e.getMessage());
+			return null;
+		}
+	}
+	
 	
 	//-----------------------------------------------------Private Methods-----------------------------------------------------------------------
 	
@@ -161,21 +180,21 @@ public class Airline {
 	
 	
 	// main for testing
-//	public static void main(String [ ] args){
-//		
-////		System.out.println("initializing Airline");
-//		Airline a = new Airline();
-//
-//		Reservation r = new Reservation(1, 123456788, "first", 75.25, 2 );
-//		
+	public static void main(String [ ] args){
+		
+//		System.out.println("initializing Airline");
+		Airline a = new Airline();
+
+		Reservation r = new Reservation(1, 123456788, "first", 75.25, 2 );
+		
 //		if (a.makeReservation(r) != null){
 //			System.out.println(":)");
 //		} else {
 //			System.out.println(":(");
 //		}
 //			
-//		//close connection to Database
-////		a.close();
-//	}
+		//close connection to Database
+//		a.close();
+	}
 	
 }
