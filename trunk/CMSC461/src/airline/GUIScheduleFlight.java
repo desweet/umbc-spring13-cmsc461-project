@@ -27,8 +27,10 @@ public class GUIScheduleFlight {
 	private JLabel lblSubmitStatus;
 	private JLabel lblFlightStatus;
 	private JLabel lblFlightStatusStatus;
-	private JComboBox cbSource;
-	private JComboBox cbDestination;
+	private JComboBox<String> cbSource;
+	private JComboBox<String> cbDestination;
+	private JLabel lblAircraftType;
+	private JComboBox<String> cbAircraftType;
 
 	/**
 	 * Launch the application.
@@ -87,19 +89,27 @@ public class GUIScheduleFlight {
 		lblSource.setHorizontalAlignment(SwingConstants.CENTER);
 		frmScheduleFlight.getContentPane().add(lblSource);
 		
-		cbSource = new JComboBox();
-		cbSource.setModel(new DefaultComboBoxModel(new String[] {"", "New York, NY", "Washington, D.C.", "Baltimore, MD", "Los Angeles, CA", "San Francisco, CA", "Seattle, WA", "Chicago, IL", "Newark, NJ", "Detroit, MI", "Boston, MA", "Raleigh, NC", "Tucson, AZ", "Columbus, OH", "Tampa, FL", "Houston, TX", "Las Vegas, NV", "Minneapolis, MN", "Atlanta, GA", "Pittsburgh, PA", "Toronto, Canada"}));
+		cbSource = new JComboBox<String>();
+		cbSource.setModel(new DefaultComboBoxModel<String>(new String[] {"", "New York, NY", "Washington, D.C.", "Baltimore, MD", "Los Angeles, CA", "San Francisco, CA", "Seattle, WA", "Chicago, IL", "Newark, NJ", "Detroit, MI", "Boston, MA", "Raleigh, NC", "Tucson, AZ", "Columbus, OH", "Tampa, FL", "Houston, TX", "Las Vegas, NV", "Minneapolis, MN", "Atlanta, GA", "Pittsburgh, PA", "Toronto, Canada"}));
 		frmScheduleFlight.getContentPane().add(cbSource);
 		
 		JLabel lblDestination = new JLabel("Destination:");
 		lblDestination.setHorizontalAlignment(SwingConstants.CENTER);
 		frmScheduleFlight.getContentPane().add(lblDestination);
 		
-		cbDestination = new JComboBox();
-		cbDestination.setModel(new DefaultComboBoxModel(new String[] {"", "New York, NY", "Washington, D.C.", "Baltimore, MD", "Los Angeles, CA", "San Francisco, CA", "Seattle, WA", "Chicago, IL", "Newark, NJ", "Detroit, MI", "Boston, MA", "Raleigh, NC", "Tucson, AZ", "Columbus, OH", "Tampa, FL", "Houston, TX", "Las Vegas, NV", "Minneapolis, MN", "Atlanta, GA", "Pittsburgh, PA", "Toronto, Canada"}));
+		cbDestination = new JComboBox<String>();
+		cbDestination.setModel(new DefaultComboBoxModel<String>(new String[] {"", "New York, NY", "Washington, D.C.", "Baltimore, MD", "Los Angeles, CA", "San Francisco, CA", "Seattle, WA", "Chicago, IL", "Newark, NJ", "Detroit, MI", "Boston, MA", "Raleigh, NC", "Tucson, AZ", "Columbus, OH", "Tampa, FL", "Houston, TX", "Las Vegas, NV", "Minneapolis, MN", "Atlanta, GA", "Pittsburgh, PA", "Toronto, Canada"}));
 		frmScheduleFlight.getContentPane().add(cbDestination);
 		
-		JLabel lblDepartureTime = new JLabel("Departure time:");
+		lblAircraftType = new JLabel("Aircraft type:");
+		lblAircraftType.setHorizontalAlignment(SwingConstants.CENTER);
+		frmScheduleFlight.getContentPane().add(lblAircraftType);
+		
+		cbAircraftType = new JComboBox<String>();
+		cbAircraftType.setModel(new DefaultComboBoxModel<String>(new String[] {"", "Boeing  737", "Boeing  747", "Boeing  767", "Airbus 330", "Airbus 340", "Airbus 350", "Airbus 380"}));
+		frmScheduleFlight.getContentPane().add(cbAircraftType);
+		
+		JLabel lblDepartureTime = new JLabel("Departure date/time:");
 		lblDepartureTime.setHorizontalAlignment(SwingConstants.CENTER);
 		frmScheduleFlight.getContentPane().add(lblDepartureTime);
 		
@@ -108,7 +118,7 @@ public class GUIScheduleFlight {
 		tfDepartureTime.setColumns(10);
 		frmScheduleFlight.getContentPane().add(tfDepartureTime);
 		
-		JLabel lblArrivalTime = new JLabel("Arrival time:");
+		JLabel lblArrivalTime = new JLabel("Arrival date/time:");
 		lblArrivalTime.setHorizontalAlignment(SwingConstants.CENTER);
 		frmScheduleFlight.getContentPane().add(lblArrivalTime);
 		
@@ -138,6 +148,8 @@ public class GUIScheduleFlight {
 					lblSubmitStatus.setText("Required field(s)");
 				else if (String.valueOf(cbDestination.getSelectedItem()).trim().equals(""))
 					lblSubmitStatus.setText("Required field(s)");
+				else if (String.valueOf(cbAircraftType.getSelectedItem()).trim().equals(""))
+					lblSubmitStatus.setText("Required field(s)");
 				else if (tfDepartureTime.getText().trim().equals(""))
 					lblSubmitStatus.setText("Required field(s)");
 				else if (tfArrivalTime.getText().trim().equals(""))
@@ -146,18 +158,31 @@ public class GUIScheduleFlight {
 					int flightNumber = Integer.parseInt(tfFlightNumber.getText());
 					String source = String.valueOf(cbSource.getSelectedItem());
 					String destination = String.valueOf(cbDestination.getSelectedItem());
-					String departureTime = tfDepartureTime.getText();
-					String arrivalTime = tfArrivalTime.getText();
+					String aircraftType = String.valueOf(cbAircraftType.getSelectedItem());
+					
 					Date date = null;
+					Date departureTime = null;
+					Date arrivalTime = null;
 					
 					try {
-						date = new SimpleDateFormat("MM-DD-YYYY").parse(tfDate.getText());
+						date = new SimpleDateFormat("MM-DD-yyyy").parse(tfDate.getText());
+						departureTime = new SimpleDateFormat("MM-DD-yyyy HH:mm").parse(tfDepartureTime.getText());
+						arrivalTime = new SimpleDateFormat("MM-DD-yyyy HH:mm").parse(tfArrivalTime.getText());
 					} catch (ParseException e1) {
 						e1.printStackTrace();
 					}
 					
+					Flight flight = new Flight(flightNumber, date, aircraftType, source, destination, departureTime, arrivalTime);
+					
+					Airline airline = new Airline();
+					boolean flightStatus = airline.addFlight(flight);
+					
+					if (flightStatus == false)
+						lblFlightStatus.setText("Failed");
+					else
+						lblFlightStatus.setText("Created");
+					
 					lblSubmitStatus.setText("");
-					System.out.println(date);
 				}
 			}
 		});
