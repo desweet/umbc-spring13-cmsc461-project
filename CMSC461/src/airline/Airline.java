@@ -100,7 +100,7 @@ public class Airline {
 			//calculate seat number
 			if (numPass <= CAPACITY){
 				status = "confirmed";
-				seatNum = numPass++;	
+				seatNum = ++numPass;	
 			}
 			
 			//setting the parameters
@@ -128,7 +128,7 @@ public class Airline {
 	 * @param departure - new departure date
 	 * @param arrival   - new arrival date
 	 * @return - true on success : false on failure
-	 */
+	 **********************************************************************************************************************/
 	public Boolean modifyFlight (int flightNum, Date departure, Date arrival) {
 		try {
 			PreparedStatement update = CONN.prepareStatement("UPDATE flights SET depart_time = ?, arrival_time = ?");
@@ -223,6 +223,8 @@ public class Airline {
 //		System.out.println("initializing Airline");
 		Airline a = new Airline();
 
+		
+		System.out.println(a.countPassengers(777));
 //		Calendar cal = Calendar.getInstance();
 //		Date date = new Date(System.currentTimeMillis());
 //		System.out.println(date.getDate() + " " + (date.getMonth() + 1) +  " " + (date.getYear() + 1900));
