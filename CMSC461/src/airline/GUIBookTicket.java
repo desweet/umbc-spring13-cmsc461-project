@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
@@ -27,7 +28,6 @@ public class GUIBookTicket {
 	private JTextField tfPhoneHome;
 	private JTextField tfEmail;
 	private JTextField tfPhoneOffice;
-	private JTextField tfFlightNumber;
 	private JTextField tfLastName;
 	private JTextField tfAge;
 
@@ -61,10 +61,12 @@ public class GUIBookTicket {
 		frmBookTicket = new JFrame();
 		frmBookTicket.setResizable(false);
 		frmBookTicket.setTitle("Book Ticket");
-		frmBookTicket.setBounds(100, 100, 400, 470);
+		frmBookTicket.setBounds(100, 100, 400, 490);
 		frmBookTicket.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmBookTicket.setLocationRelativeTo(null);
 		frmBookTicket.getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
+		
+		final Airline airline = new Airline();
 		
 		JLabel lblSSN = new JLabel("SSN:");
 		lblSSN.setHorizontalAlignment(SwingConstants.CENTER);
@@ -178,10 +180,9 @@ public class GUIBookTicket {
 		lblFlightNumber.setHorizontalAlignment(SwingConstants.CENTER);
 		frmBookTicket.getContentPane().add(lblFlightNumber);
 		
-		tfFlightNumber = new JTextField();
-		tfFlightNumber.setHorizontalAlignment(SwingConstants.CENTER);
-		tfFlightNumber.setColumns(10);
-		frmBookTicket.getContentPane().add(tfFlightNumber);
+		final JComboBox<String> cbFlightNumber = new JComboBox<String>();
+		cbFlightNumber.setModel(new DefaultComboBoxModel<String>(airline.getFlightNumbers().toArray(new String[airline.getFlightNumbers().size()])));
+		frmBookTicket.getContentPane().add(cbFlightNumber);
 		
 		JLabel lblFlightClass = new JLabel("Flight class:");
 		lblFlightClass.setHorizontalAlignment(SwingConstants.CENTER);
@@ -241,7 +242,7 @@ public class GUIBookTicket {
 					lblSubmitStatus.setText("Required field(s)");
 				else if (tfEmail.getText().trim().equals(""))
 					lblSubmitStatus.setText("Required field(s)");
-				else if (tfFlightNumber.getText().trim().equals(""))
+				else if (String.valueOf(cbFlightNumber.getSelectedItem()).trim().equals(""))
 					lblSubmitStatus.setText("Required field(s)");
 				else if (String.valueOf(cbFlightClass.getSelectedItem()).trim().equals(""))
 					lblSubmitStatus.setText("Required field(s)");
@@ -288,14 +289,13 @@ public class GUIBookTicket {
 														phoneHome,
 														phoneOffice);
 					
-					int flightNumber = Integer.parseInt(tfFlightNumber.getText());
+					int flightNumber = Integer.parseInt(String.valueOf(cbFlightNumber.getSelectedItem()));
 					String flightClass = String.valueOf(cbFlightClass.getSelectedItem()).toLowerCase();
 					double amountPaid = Double.parseDouble(tfAmountPaid.getText());
 					int bags = 0;
 					
 					Reservation reservation = new Reservation(flightNumber, ssn, flightClass, amountPaid, bags);
 					
-					Airline airline = new Airline();
 					boolean passengerStatus = airline.addPassenger(passenger);
 					String reservationStatus = airline.makeReservation(reservation);
 					

@@ -54,6 +54,8 @@ public class GUIModifyFlight {
 		frmModifyFlight.setLocationRelativeTo(null);
 		frmModifyFlight.getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
 		
+		final Airline airline = new Airline();
+		
 		JLabel lblFlightNumber = new JLabel("Flight number:");
 		lblFlightNumber.setHorizontalAlignment(SwingConstants.CENTER);
 		frmModifyFlight.getContentPane().add(lblFlightNumber);

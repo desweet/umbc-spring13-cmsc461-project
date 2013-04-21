@@ -4,17 +4,18 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import java.awt.GridLayout;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
 
 public class GUIFlightArrival {
 
 	JFrame frmFlightArrival;
-	private JTextField tfFlightNumber;
 	private JLabel lblPassengersStatus;
 	private JLabel lblStops;
 	private JLabel lblStopsStatus;
@@ -58,14 +59,15 @@ public class GUIFlightArrival {
 		frmFlightArrival.setLocationRelativeTo(null);
 		frmFlightArrival.getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
 		
+		final Airline airline = new Airline();
+		
 		JLabel lblFlightNumber = new JLabel("Flight number:");
 		lblFlightNumber.setHorizontalAlignment(SwingConstants.CENTER);
 		frmFlightArrival.getContentPane().add(lblFlightNumber);
 		
-		tfFlightNumber = new JTextField();
-		tfFlightNumber.setHorizontalAlignment(SwingConstants.CENTER);
-		tfFlightNumber.setColumns(10);
-		frmFlightArrival.getContentPane().add(tfFlightNumber);
+		final JComboBox<String> cbFlightNumber = new JComboBox<String>();
+		cbFlightNumber.setModel(new DefaultComboBoxModel<String>(airline.getFlightNumbers().toArray(new String[airline.getFlightNumbers().size()])));
+		frmFlightArrival.getContentPane().add(cbFlightNumber);
 		
 		JLabel lblPassengers = new JLabel("Passengers:");
 		lblPassengers.setHorizontalAlignment(SwingConstants.CENTER);
@@ -94,7 +96,7 @@ public class GUIFlightArrival {
 		btnGetStats = new JButton("Get Stats");
 		btnGetStats.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (tfFlightNumber.getText().trim().equals(""))
+				if (String.valueOf(cbFlightNumber.getSelectedItem()).trim().equals(""))
 					lblGetStatsStatus.setText("Required field(s)");
 				
 //				get flight object from db
