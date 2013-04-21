@@ -1,6 +1,7 @@
 package airline;
 
 import java.sql.*;
+import java.text.DecimalFormat;
 import java.util.Date;
 //import java.util.Calendar;
 //import java.util.GregorianCalendar;
@@ -221,10 +222,12 @@ public class Airline {
 			passengers.add("");
 			result.first();
 			
+			DecimalFormat df = new DecimalFormat("#");
+			
 			//prime loop
-			passengers.add(Double.toString(result.getDouble("SSN")));
+			passengers.add(df.format(result.getDouble("SSN")));
 			while (result.next()){
-				passengers.add(Double.toString(result.getDouble("SSN")));
+				passengers.add(df.format(result.getDouble("SSN")));
 			}
 			
 			return passengers;
@@ -253,12 +256,58 @@ public class Airline {
 			
 			Statement update = CONN.createStatement( );
 			update.executeUpdate("UPDATE passengers SET status = \"checked-in\" WHERE SSN = " + SSN);
-			
+			update.close();
+			query.close();
 		} catch (Exception e) {
 			System.out.println("Failure: " + e.getMessage());
 			return false;
 		}
 		return true;
+	}
+	
+	/****************************************************************************************************************************
+	 * @param flightNumber - flight number to count the on board passengers
+	 * @return - count of passengers with reservation of "checked-in"
+	 ****************************************************************************************************************************/
+	public int countOnBoard( int flightNum ){
+		int count = 0;
+		try {
+			PreparedStatement query = CONN.prepareStatement("SELECT count(*) FROM reservations WHERE flight_number = ? and status = \"checked-in\"");
+	
+			query.setInt(1, flightNum);
+			ResultSet result = query.executeQuery();
+			result.first();
+			count = result.getInt(1);
+		} catch (Exception e) {
+			System.out.println("Failure! " + e.getMessage());
+		}
+		
+		return count;
+	}
+	
+	/*****************************************************************************************************************************
+	 * @param flightNum - flight number you want the number of stops for
+	 * @return - number of intermediate stops
+	 *****************************************************************************************************************************/
+	public int numStops( int flightNum ){
+		int count = 0;
+		
+		return count;
+	}
+	
+	/******************************************************************************************************************************
+	 * @param flightNum
+	 * @return time in minutes between departure and arrival
+	 ******************************************************************************************************************************/
+	public double timeTaken( int flightNum ){
+		double minutes = 0;
+		try {
+			PreparedStatement query = CONN.prepareStatement("SELECT depart_time, arrival_time FROM flights WHERE flight_number = ? and status = \"checked-in\"");
+		} catch (Exception e){
+			System.out.println("Failure: " + e.getMessage());
+			return minutes;
+		}
+		return minutes;
 	}
 	
 	
