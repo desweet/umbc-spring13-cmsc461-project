@@ -21,7 +21,7 @@ public class GUICheckIn {
 	private JLabel lblSeatNumber;
 	private JTextField tfSeatNumber;
 	private JButton btnSubmit;
-	private JLabel tfSubmitStatus;
+	private JLabel lblSubmitStatus;
 	private JLabel lblPassengerStatus;
 	private JLabel lblPassengerStatusStatus;
 
@@ -96,17 +96,38 @@ public class GUICheckIn {
 		lblPassengerStatusStatus.setHorizontalAlignment(SwingConstants.CENTER);
 		frmCheckIn.getContentPane().add(lblPassengerStatusStatus);
 		
+		lblSubmitStatus = new JLabel("");
+		
 		btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				if (String.valueOf(cbSSN.getSelectedItem()).trim().equals(""))
+					lblSubmitStatus.setText("Required field(s)");
+				else if (tfBaggageCarried.getText().trim().equals(""))
+					lblSubmitStatus.setText("Required field(s)");
+				else if (tfSeatNumber.getText().trim().equals(""))
+					lblSubmitStatus.setText("Required field(s)");
+				else {
+					double ssn = Double.parseDouble(String.valueOf(cbSSN.getSelectedItem()));
+					int baggageCarried = Integer.parseInt(tfBaggageCarried.getText());
+					int seatNumber = Integer.parseInt(tfSeatNumber.getText());
+					
+					boolean checkInStatus = airline.checkIn(ssn, baggageCarried, seatNumber);
+					
+					if (checkInStatus == false)
+						lblPassengerStatusStatus.setText("Failed");
+					else
+						lblPassengerStatusStatus.setText("Created");
+					
+					lblSubmitStatus.setText("");
+				}
 			}
 		});
 		frmCheckIn.getContentPane().add(btnSubmit);
 		
-		tfSubmitStatus = new JLabel("");
-		tfSubmitStatus.setHorizontalAlignment(SwingConstants.CENTER);
-		frmCheckIn.getContentPane().add(tfSubmitStatus);
+		
+		lblSubmitStatus.setHorizontalAlignment(SwingConstants.CENTER);
+		frmCheckIn.getContentPane().add(lblSubmitStatus);
 	}
 
 }
