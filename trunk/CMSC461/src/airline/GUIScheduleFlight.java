@@ -62,7 +62,7 @@ public class GUIScheduleFlight {
 		frmScheduleFlight = new JFrame();
 		frmScheduleFlight.setResizable(false);
 		frmScheduleFlight.setTitle("Schedule Flight");
-		frmScheduleFlight.setBounds(100, 100, 300, 250);
+		frmScheduleFlight.setBounds(100, 100, 300, 300);
 		frmScheduleFlight.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmScheduleFlight.setLocationRelativeTo(null);
 		frmScheduleFlight.getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
