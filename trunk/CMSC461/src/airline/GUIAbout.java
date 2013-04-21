@@ -62,7 +62,7 @@ public class GUIAbout {
 		lblDerekSweet.setFont(new Font("Tahoma", Font.BOLD, 20));
 		frmAbout.getContentPane().add(lblDerekSweet);
 		
-		JLabel lblStevenZubrowski = new JLabel("Steven Zubrowski");
+		JLabel lblStevenZubrowski = new JLabel("Stephen Zubrowski");
 		lblStevenZubrowski.setHorizontalAlignment(SwingConstants.CENTER);
 		lblStevenZubrowski.setFont(new Font("Tahoma", Font.BOLD, 20));
 		frmAbout.getContentPane().add(lblStevenZubrowski);
