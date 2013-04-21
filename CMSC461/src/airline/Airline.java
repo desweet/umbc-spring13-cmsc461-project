@@ -1,7 +1,7 @@
 package airline;
 
 import java.sql.*;
-//import java.util.Date;
+import java.util.Date;
 //import java.util.Calendar;
 //import java.util.GregorianCalendar;
 import java.util.ArrayList;
@@ -252,7 +252,7 @@ public class Airline {
 			}
 			
 			Statement update = CONN.createStatement( );
-			update.executeUpdate("UPDATE passengers SET status = \"checked-in\"");
+			update.executeUpdate("UPDATE passengers SET status = \"checked-in\" WHERE SSN = " + SSN);
 			
 		} catch (Exception e) {
 			System.out.println("Failure: " + e.getMessage());
