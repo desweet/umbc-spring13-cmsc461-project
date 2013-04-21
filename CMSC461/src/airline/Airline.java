@@ -255,7 +255,7 @@ public class Airline {
 			}
 			
 			Statement update = CONN.createStatement( );
-			update.executeUpdate("UPDATE passengers SET status = \"checked-in\", num_bags = " + numBags + ", seat = " + seatNum + " WHERE SSN = " + SSN);
+			update.executeUpdate("UPDATE reservations SET status = \"checked-in\", num_bags = " + numBags + ", seat = " + seatNum + " WHERE SSN = " + SSN);
 			update.close();
 			query.close();
 		} catch (Exception e) {
@@ -307,11 +307,8 @@ public class Airline {
 			ResultSet result = query.executeQuery();
 			result.first();
 			
-			Date depart = result.getDate("depart_time");
-			Date arrival = result.getDate("arrival_time");
-			
-			System.out.println(arrival.getTime());
-			System.out.println(depart.getTime());
+			Timestamp depart = result.getTimestamp("depart_time");
+			Timestamp arrival = result.getTimestamp("arrival_time");
 			
 			minutes = arrival.getTime() - depart.getTime();
 			minutes = minutes / 1000.0;   // convert to seconds
@@ -339,10 +336,10 @@ public class Airline {
 //		System.out.println("initializing Airline");
 		Airline a = new Airline();
 
-		double minutes = a.timeTaken(2);
-		int hours = (int) (minutes / 60);
-		int min = (int) (minutes % 60);
-		System.out.println(hours + " Hours " + min + " Minutes");
+//		double minutes = a.timeTaken(5);
+//		int hours = (int) (minutes / 60);
+//		int min = (int) (minutes % 60);
+//		System.out.println(hours + " Hours " + min + " Minutes");
 //		Calendar cal = Calendar.getInstance();
 //		Date date = new Date(System.currentTimeMillis());
 //		System.out.println(date.getDate() + " " + (date.getMonth() + 1) +  " " + (date.getYear() + 1900));
