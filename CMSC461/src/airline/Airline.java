@@ -241,7 +241,7 @@ public class Airline {
 	 * @param SSN - SSN of passenger to check-in
 	 * @return true on success | false otherwise
 	 ***************************************************************************************************************************/
-	public Boolean checkIn(double SSN){
+	public Boolean checkIn(double SSN, int numBags, int seatNum){
 		try{
 			PreparedStatement query = CONN.prepareStatement("SELECT status FROM reservations WHERE SSN = ?");
 			query.setDouble(1,  SSN);
@@ -255,7 +255,7 @@ public class Airline {
 			}
 			
 			Statement update = CONN.createStatement( );
-			update.executeUpdate("UPDATE passengers SET status = \"checked-in\" WHERE SSN = " + SSN);
+			update.executeUpdate("UPDATE passengers SET status = \"checked-in\", num_bags = " + numBags + ", seat = " + seatNum + " WHERE SSN = " + SSN);
 			update.close();
 			query.close();
 		} catch (Exception e) {
@@ -302,12 +302,25 @@ public class Airline {
 	public double timeTaken( int flightNum ){
 		double minutes = 0;
 		try {
-			PreparedStatement query = CONN.prepareStatement("SELECT depart_time, arrival_time FROM flights WHERE flight_number = ? and status = \"checked-in\"");
+			PreparedStatement query = CONN.prepareStatement("SELECT depart_time, arrival_time FROM flights WHERE flight_number = ?");
+			query.setInt(1, flightNum);
+			ResultSet result = query.executeQuery();
+			result.first();
+			
+			Date depart = result.getDate("depart_time");
+			Date arrival = result.getDate("arrival_time");
+			
+			System.out.println(arrival.getTime());
+			System.out.println(depart.getTime());
+			
+			minutes = arrival.getTime() - depart.getTime();
+			minutes = minutes / 1000.0;   // convert to seconds
+			minutes = minutes / 60.0;     // convert to minutes
+			return minutes;
 		} catch (Exception e){
 			System.out.println("Failure: " + e.getMessage());
 			return minutes;
 		}
-		return minutes;
 	}
 	
 	
@@ -326,8 +339,10 @@ public class Airline {
 //		System.out.println("initializing Airline");
 		Airline a = new Airline();
 
-		
-		System.out.println(a.countPassengers(777));
+		double minutes = a.timeTaken(2);
+		int hours = (int) (minutes / 60);
+		int min = (int) (minutes % 60);
+		System.out.println(hours + " Hours " + min + " Minutes");
 //		Calendar cal = Calendar.getInstance();
 //		Date date = new Date(System.currentTimeMillis());
 //		System.out.println(date.getDate() + " " + (date.getMonth() + 1) +  " " + (date.getYear() + 1900));
