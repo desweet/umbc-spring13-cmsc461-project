@@ -98,7 +98,7 @@ public class Airline {
 			int numPass = countPassengers(r.getFlightNum());
 			
 			//calculate seat number
-			if (numPass <= CAPACITY){
+			if (numPass < CAPACITY){
 				status = "confirmed";
 				seatNum = ++numPass;	
 			}
@@ -188,7 +188,7 @@ public class Airline {
 	public ArrayList<String> getFlightNumbers( ){
 		try {
 			Statement query = CONN.createStatement();
-			ResultSet result = query.executeQuery("SELECT * FROM flights");
+			ResultSet result = query.executeQuery("SELECT flight_number FROM flights");
 			
 			ArrayList<String> flightNumbers = new ArrayList<String>();
 			flightNumbers.add("");
@@ -201,6 +201,32 @@ public class Airline {
 			}
 			
 			return flightNumbers;
+		} catch (Exception e) {
+			System.out.println("Failure: " + e.getMessage());
+			return null;
+		}
+	}
+	
+	/*************************************************************************************************************************
+	 * @input: none
+	 * @output: an ArrayList<String> of all the SSN for each passenger in the DB
+	 *************************************************************************************************************************/
+	public ArrayList<String> getPassengers( ){
+		try {
+			Statement query = CONN.createStatement();
+			ResultSet result = query.executeQuery("SELECT SSN FROM passengers");
+			
+			ArrayList<String> passengers = new ArrayList<String>();
+			passengers.add("");
+			result.first();
+			
+			//prime loop
+			passengers.add(Double.toString(result.getDouble("SSN")));
+			while (result.next()){
+				passengers.add(Double.toString(result.getDouble("SSN")));
+			}
+			
+			return passengers;
 		} catch (Exception e) {
 			System.out.println("Failure: " + e.getMessage());
 			return null;
