@@ -33,11 +33,11 @@ public class Airline {
 					CONN.prepareStatement("INSERT into flights values (?, ?, ?, ?, ?, ?, ?)");
 			
 			//get date created, and set depart and arrival times
-			//Calendar today = Calendar.getInstance();
+			Date today = new Date(System.currentTimeMillis());
 			
 			//setting the parameters
 			insertStatement.setInt(1, f.getFlightNumber());
-			insertStatement.setDate(2, new java.sql.Date(Calendar.YEAR - 1900, Calendar.DAY_OF_MONTH, Calendar.MONTH - 1)); 	  // date
+			insertStatement.setDate(2, new java.sql.Date(today.getYear(), today.getDate(), today.getMonth())); 	  	  // date
 			insertStatement.setString(3, f.getAircraftType());														  // aircraft
 			insertStatement.setString(4, f.getSource());													  		  // source
 			insertStatement.setString(5, f.getDestination());														  // arrival
@@ -202,7 +202,9 @@ public class Airline {
 //		System.out.println("initializing Airline");
 		Airline a = new Airline();
 
-		
+		Calendar cal = Calendar.getInstance();
+		Date date = new Date(System.currentTimeMillis());
+		System.out.println(date.getDate() + " " + (date.getMonth() + 1) +  " " + (date.getYear() + 1900));
 
 //		ArrayList<String> fn = a.getFlightNumbers();
 //		
