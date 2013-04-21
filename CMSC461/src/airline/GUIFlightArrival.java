@@ -105,9 +105,12 @@ public class GUIFlightArrival {
 					int stops = airline.numStops(flightNumber);
 					double timeTaken = airline.timeTaken(flightNumber);
 					
+					int hours = (int) (timeTaken / 60);
+					int minutes = (int) (timeTaken % 60);
+					
 					lblPassengersStatus.setText(Integer.toString(passengers));
 					lblStopsStatus.setText(Integer.toString(stops));
-					lblTimeTakenStatus.setText(Double.toString(timeTaken));
+					lblTimeTakenStatus.setText(Integer.toString(hours) + " hours, " + Integer.toString(minutes) + " minutes");
 					
 					lblGetStatsStatus.setText("");
 				}
