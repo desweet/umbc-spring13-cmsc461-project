@@ -2,7 +2,7 @@ package airline;
 
 import java.sql.*;
 //import java.util.Date;
-import java.util.Calendar;
+//import java.util.Calendar;
 //import java.util.GregorianCalendar;
 import java.util.ArrayList;
 
@@ -26,7 +26,6 @@ public class Airline {
 	 * @input: Flight object to add to database
 	 * @output: Boolean for if adding the flight was successful
 	 ******************************************************************************************************************/
-	@SuppressWarnings("deprecation")
 	public Boolean addFlight(Flight f){
 		try {
 			PreparedStatement insertStatement = 
@@ -88,7 +87,6 @@ public class Airline {
 	 * @input: Passenger object to add to database
 	 * @output: String ("confirmed" || "waiting") or null for error  
 	 *******************************************************************************************************************/
-	@SuppressWarnings("deprecation")
 	public String makeReservation(Reservation r){
 		try {
 			PreparedStatement insertStatement = 
@@ -125,8 +123,34 @@ public class Airline {
 		}
 	}
 	
+	/**********************************************************************************************************************
+	 * @param flightNum - flight number to modify
+	 * @param departure - new departure date
+	 * @param arrival   - new arrival date
+	 * @return - true on success : false on failure
+	 */
+	public Boolean modifyFlight (int flightNum, Date departure, Date arrival) {
+		try {
+			PreparedStatement update = CONN.prepareStatement("UPDATE flights SET depart_time = ?, arrival_time = ?");
+			
+			update.setTimestamp(1, new Timestamp(departure.getTime()));
+			update.setTimestamp(2, new Timestamp(arrival.getTime()));
+			update.executeUpdate();
+			update.close();
+		} catch (Exception e){
+			System.out.println("Failure: " + e.getMessage());
+			return false;
+		}
+		
+		return true;
+	}
 	
-	//close connection to database
+	
+	/***********************************************************************************************************************
+	 * @input: none
+	 * @output: none
+	 * closes connection to database
+	 ***********************************************************************************************************************/
 	public void close(){
 		try {
 			if (CONN != null){
@@ -167,7 +191,7 @@ public class Airline {
 			ResultSet result = query.executeQuery("SELECT * FROM flights");
 			
 			ArrayList<String> flightNumbers = new ArrayList<String>();
-			
+			flightNumbers.add("");
 			result.first();
 			
 			//prime loop
