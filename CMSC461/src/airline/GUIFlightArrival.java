@@ -98,13 +98,19 @@ public class GUIFlightArrival {
 			public void actionPerformed(ActionEvent e) {
 				if (String.valueOf(cbFlightNumber.getSelectedItem()).trim().equals(""))
 					lblGetStatsStatus.setText("Required field(s)");
-				
-//				get flight object from db
-//				get passengers from object
-//				get stops from object (total number of stops)
-//				get time taken from object or calculate (arrival - departure)
-				
-				lblGetStatsStatus.setText("Successfully submitted");
+				else {
+					int flightNumber = Integer.parseInt(String.valueOf(cbFlightNumber.getSelectedItem()));
+					
+					int passengers = airline.countOnBoard(flightNumber);
+					int stops = airline.numStops(flightNumber);
+					double timeTaken = airline.timeTaken(flightNumber);
+					
+					lblPassengersStatus.setText(Integer.toString(passengers));
+					lblStopsStatus.setText(Integer.toString(stops));
+					lblTimeTakenStatus.setText(Double.toString(timeTaken));
+					
+					lblGetStatsStatus.setText("");
+				}
 			}
 		});
 		btnGetStats.setHorizontalTextPosition(SwingConstants.CENTER);
