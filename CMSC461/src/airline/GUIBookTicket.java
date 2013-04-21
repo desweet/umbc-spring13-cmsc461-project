@@ -61,7 +61,7 @@ public class GUIBookTicket {
 		frmBookTicket = new JFrame();
 		frmBookTicket.setResizable(false);
 		frmBookTicket.setTitle("Book Ticket");
-		frmBookTicket.setBounds(100, 100, 400, 490);
+		frmBookTicket.setBounds(100, 100, 400, 500);
 		frmBookTicket.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmBookTicket.setLocationRelativeTo(null);
 		frmBookTicket.getContentPane().setLayout(new GridLayout(0, 2, 0, 0));

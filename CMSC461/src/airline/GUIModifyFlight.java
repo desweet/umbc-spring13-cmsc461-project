@@ -11,6 +11,11 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class GUIModifyFlight {
 
@@ -19,7 +24,9 @@ public class GUIModifyFlight {
 	private JLabel lblArrivalDateTime;
 	private JTextField tfArrivalDateTime;
 	private JButton btnSubmit;
-	private JLabel tfSubmitStatus;
+	private JLabel lblSubmitStatus;
+	private JLabel lblFlightStatus;
+	private JLabel lblFlightStatusStatus;
 
 	/**
 	 * Launch the application.
@@ -51,7 +58,7 @@ public class GUIModifyFlight {
 		frmModifyFlight = new JFrame();
 		frmModifyFlight.setResizable(false);
 		frmModifyFlight.setTitle("Modify Flight");
-		frmModifyFlight.setBounds(100, 100, 300, 150);
+		frmModifyFlight.setBounds(100, 100, 300, 180);
 		frmModifyFlight.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmModifyFlight.setLocationRelativeTo(null);
 		frmModifyFlight.getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
@@ -84,12 +91,53 @@ public class GUIModifyFlight {
 		tfArrivalDateTime.setColumns(10);
 		frmModifyFlight.getContentPane().add(tfArrivalDateTime);
 		
+		lblFlightStatus = new JLabel("Flight status:");
+		lblFlightStatus.setHorizontalAlignment(SwingConstants.CENTER);
+		frmModifyFlight.getContentPane().add(lblFlightStatus);
+		
+		lblFlightStatusStatus = new JLabel("");
+		lblFlightStatusStatus.setHorizontalAlignment(SwingConstants.CENTER);
+		frmModifyFlight.getContentPane().add(lblFlightStatusStatus);
+		
+		lblSubmitStatus = new JLabel("");
+		
 		btnSubmit = new JButton("Submit");
+		btnSubmit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (String.valueOf(cbFlightNumber.getSelectedItem()).trim().equals(""))
+					lblSubmitStatus.setText("Required field(s)");
+				else if (tfDepartureDateTime.getText().trim().equals(""))
+					lblSubmitStatus.setText("Required field(s)");
+				else if (tfArrivalDateTime.getText().trim().equals(""))
+					lblSubmitStatus.setText("Required field(s)");
+				else {
+					int flightNumber = Integer.parseInt(String.valueOf(cbFlightNumber.getSelectedItem()));
+					
+					Date departureTime = null;
+					Date arrivalTime = null;
+					
+					try {
+						departureTime = new SimpleDateFormat("MM-dd-yyyy HH:mm").parse(tfDepartureDateTime.getText());
+						arrivalTime = new SimpleDateFormat("MM-dd-yyyy HH:mm").parse(tfArrivalDateTime.getText());
+					} catch (ParseException e1) {
+						e1.printStackTrace();
+					}
+					
+					boolean modifyStatus = airline.modifyFlight(flightNumber, departureTime, arrivalTime);
+					
+					if (modifyStatus == false)
+						lblFlightStatusStatus.setText("Failed");
+					else
+						lblFlightStatusStatus.setText("Updated");
+					
+					lblSubmitStatus.setText("");
+				}
+			}
+		});
 		frmModifyFlight.getContentPane().add(btnSubmit);
 		
-		tfSubmitStatus = new JLabel("");
-		tfSubmitStatus.setHorizontalAlignment(SwingConstants.CENTER);
-		frmModifyFlight.getContentPane().add(tfSubmitStatus);
+		lblSubmitStatus.setHorizontalAlignment(SwingConstants.CENTER);
+		frmModifyFlight.getContentPane().add(lblSubmitStatus);
 	}
 
 }

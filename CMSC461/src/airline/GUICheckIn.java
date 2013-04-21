@@ -4,20 +4,26 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import java.awt.GridLayout;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class GUICheckIn {
 
 	JFrame frmCheckIn;
-	private JTextField tfSSN;
 	private JTextField tfBaggageCarried;
 	private JLabel lblSeatNumber;
 	private JTextField tfSeatNumber;
 	private JButton btnSubmit;
 	private JLabel tfSubmitStatus;
+	private JLabel lblPassengerStatus;
+	private JLabel lblPassengerStatusStatus;
 
 	/**
 	 * Launch the application.
@@ -49,19 +55,20 @@ public class GUICheckIn {
 		frmCheckIn = new JFrame();
 		frmCheckIn.setResizable(false);
 		frmCheckIn.setTitle("Check In");
-		frmCheckIn.setBounds(100, 100, 200, 150);
+		frmCheckIn.setBounds(100, 100, 250, 170);
 		frmCheckIn.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmCheckIn.setLocationRelativeTo(null);
 		frmCheckIn.getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
+		
+		final Airline airline = new Airline();
 		
 		JLabel lblSSN = new JLabel("SSN:");
 		lblSSN.setHorizontalAlignment(SwingConstants.CENTER);
 		frmCheckIn.getContentPane().add(lblSSN);
 		
-		tfSSN = new JTextField();
-		tfSSN.setHorizontalAlignment(SwingConstants.CENTER);
-		tfSSN.setColumns(10);
-		frmCheckIn.getContentPane().add(tfSSN);
+		final JComboBox<String> cbSSN = new JComboBox<String>();
+		cbSSN.setModel(new DefaultComboBoxModel<String>(airline.getPassengers().toArray(new String[airline.getFlightNumbers().size()])));
+		frmCheckIn.getContentPane().add(cbSSN);
 		
 		JLabel lblBaggageCarried = new JLabel("Baggage carried:");
 		lblBaggageCarried.setHorizontalAlignment(SwingConstants.CENTER);
@@ -81,7 +88,20 @@ public class GUICheckIn {
 		tfSeatNumber.setColumns(10);
 		frmCheckIn.getContentPane().add(tfSeatNumber);
 		
+		lblPassengerStatus = new JLabel("Passenger status:");
+		lblPassengerStatus.setHorizontalAlignment(SwingConstants.CENTER);
+		frmCheckIn.getContentPane().add(lblPassengerStatus);
+		
+		lblPassengerStatusStatus = new JLabel("");
+		lblPassengerStatusStatus.setHorizontalAlignment(SwingConstants.CENTER);
+		frmCheckIn.getContentPane().add(lblPassengerStatusStatus);
+		
 		btnSubmit = new JButton("Submit");
+		btnSubmit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		frmCheckIn.getContentPane().add(btnSubmit);
 		
 		tfSubmitStatus = new JLabel("");

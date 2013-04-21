@@ -54,7 +54,7 @@ public class GUIFlightArrival {
 		frmFlightArrival = new JFrame();
 		frmFlightArrival.setResizable(false);
 		frmFlightArrival.setTitle("Flight Arrival");
-		frmFlightArrival.setBounds(100, 100, 200, 160);
+		frmFlightArrival.setBounds(100, 100, 250, 170);
 		frmFlightArrival.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmFlightArrival.setLocationRelativeTo(null);
 		frmFlightArrival.getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
