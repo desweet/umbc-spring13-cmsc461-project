@@ -32,12 +32,9 @@ public class Airline {
 			PreparedStatement insertStatement = 
 					CONN.prepareStatement("INSERT into flights values (?, ?, ?, ?, ?, ?, ?)");
 			
-			//get date created, and set depart and arrival times
-			Date today = new Date(System.currentTimeMillis());
-			
 			//setting the parameters
 			insertStatement.setInt(1, f.getFlightNumber());
-			insertStatement.setDate(2, new java.sql.Date(today.getYear(), today.getDate(), today.getMonth())); 	  	  // date
+			insertStatement.setDate(2, new java.sql.Date(System.currentTimeMillis())); 	  	  // date
 			insertStatement.setString(3, f.getAircraftType());														  // aircraft
 			insertStatement.setString(4, f.getSource());													  		  // source
 			insertStatement.setString(5, f.getDestination());														  // arrival
@@ -95,7 +92,7 @@ public class Airline {
 	public String makeReservation(Reservation r){
 		try {
 			PreparedStatement insertStatement = 
-					CONN.prepareStatement("INSERT into reservations values (?, ?, ?, ?, ?, ?, ?, ?)");
+					CONN.prepareStatement("INSERT into reservations values (default, ?, ?, ?, ?, ?, ?, ?, ?)");
 			
 			//check number booked for flight
 			String status = "waiting";
@@ -116,7 +113,7 @@ public class Airline {
 			insertStatement.setInt(5, seatNum);											// seat #
 			insertStatement.setDouble(6, r.getAmountCharged());							// amount charged
 			insertStatement.setInt(7,  r.getNumBags());									// num bags
-			insertStatement.setDate(8, new java.sql.Date(Calendar.YEAR, Calendar.DAY_OF_MONTH, Calendar.MONTH)); 	  // date
+			insertStatement.setDate(8, new java.sql.Date(System.currentTimeMillis())); 	  // date
 			
 			
 			insertStatement.executeUpdate();
@@ -202,9 +199,9 @@ public class Airline {
 //		System.out.println("initializing Airline");
 		Airline a = new Airline();
 
-		Calendar cal = Calendar.getInstance();
-		Date date = new Date(System.currentTimeMillis());
-		System.out.println(date.getDate() + " " + (date.getMonth() + 1) +  " " + (date.getYear() + 1900));
+//		Calendar cal = Calendar.getInstance();
+//		Date date = new Date(System.currentTimeMillis());
+//		System.out.println(date.getDate() + " " + (date.getMonth() + 1) +  " " + (date.getYear() + 1900));
 
 //		ArrayList<String> fn = a.getFlightNumbers();
 //		
