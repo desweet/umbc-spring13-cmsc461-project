@@ -4,15 +4,17 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import java.awt.GridLayout;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 
 public class GUIModifyFlight {
 
 	JFrame frmModifyFlight;
-	private JTextField tfFlightNumber;
 	private JTextField tfDepartureDateTime;
 	private JLabel lblArrivalDateTime;
 	private JTextField tfArrivalDateTime;
@@ -60,10 +62,9 @@ public class GUIModifyFlight {
 		lblFlightNumber.setHorizontalAlignment(SwingConstants.CENTER);
 		frmModifyFlight.getContentPane().add(lblFlightNumber);
 		
-		tfFlightNumber = new JTextField();
-		tfFlightNumber.setHorizontalAlignment(SwingConstants.CENTER);
-		frmModifyFlight.getContentPane().add(tfFlightNumber);
-		tfFlightNumber.setColumns(10);
+		final JComboBox<String> cbFlightNumber = new JComboBox<String>();
+		cbFlightNumber.setModel(new DefaultComboBoxModel<String>(airline.getFlightNumbers().toArray(new String[airline.getFlightNumbers().size()])));
+		frmModifyFlight.getContentPane().add(cbFlightNumber);
 		
 		JLabel lblDepartureDateTime = new JLabel("Departure date/time:");
 		lblDepartureDateTime.setHorizontalAlignment(SwingConstants.CENTER);
