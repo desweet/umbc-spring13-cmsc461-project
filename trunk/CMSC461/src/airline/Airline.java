@@ -131,10 +131,11 @@ public class Airline {
 	 **********************************************************************************************************************/
 	public Boolean modifyFlight (int flightNum, Date departure, Date arrival) {
 		try {
-			PreparedStatement update = CONN.prepareStatement("UPDATE flights SET depart_time = ?, arrival_time = ?");
+			PreparedStatement update = CONN.prepareStatement("UPDATE flights SET depart_time = ?, arrival_time = ? WHERE flight_number = ?");
 			
 			update.setTimestamp(1, new Timestamp(departure.getTime()));
 			update.setTimestamp(2, new Timestamp(arrival.getTime()));
+			update.setInt(3, flightNum);
 			update.executeUpdate();
 			update.close();
 		} catch (Exception e){
@@ -231,6 +232,33 @@ public class Airline {
 			System.out.println("Failure: " + e.getMessage());
 			return null;
 		}
+	}
+	
+	/***************************************************************************************************************************
+	 * @param SSN - SSN of passenger to check-in
+	 * @return true on success | false otherwise
+	 ***************************************************************************************************************************/
+	public Boolean checkIn(double SSN){
+		try{
+			PreparedStatement query = CONN.prepareStatement("SELECT status FROM reservations WHERE SSN = ?");
+			query.setDouble(1,  SSN);
+			ResultSet result = query.executeQuery();
+			result.first();
+			
+			String status = result.getString("status");
+			
+			if (status.equals("waiting")){
+				return false;
+			}
+			
+			Statement update = CONN.createStatement( );
+			update.executeUpdate("UPDATE passengers SET status = \"checked-in\"");
+			
+		} catch (Exception e) {
+			System.out.println("Failure: " + e.getMessage());
+			return false;
+		}
+		return true;
 	}
 	
 	
