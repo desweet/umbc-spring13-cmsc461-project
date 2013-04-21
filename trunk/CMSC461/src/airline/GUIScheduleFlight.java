@@ -76,7 +76,7 @@ public class GUIScheduleFlight {
 		frmScheduleFlight.getContentPane().add(tfFlightNumber);
 		tfFlightNumber.setColumns(10);
 		
-		JLabel lblDate = new JLabel("Date (mm/dd/yyyy):");
+		JLabel lblDate = new JLabel("Date (mm-dd-yyyy):");
 		lblDate.setHorizontalAlignment(SwingConstants.CENTER);
 		frmScheduleFlight.getContentPane().add(lblDate);
 		
@@ -165,9 +165,9 @@ public class GUIScheduleFlight {
 					Date arrivalTime = null;
 					
 					try {
-						date = new SimpleDateFormat("MM-DD-yyyy").parse(tfDate.getText());
-						departureTime = new SimpleDateFormat("MM-DD-yyyy HH:mm").parse(tfDepartureTime.getText());
-						arrivalTime = new SimpleDateFormat("MM-DD-yyyy HH:mm").parse(tfArrivalTime.getText());
+						date = new SimpleDateFormat("MM-dd-yyyy").parse(tfDate.getText());
+						departureTime = new SimpleDateFormat("MM-dd-yyyy HH:mm").parse(tfDepartureTime.getText());
+						arrivalTime = new SimpleDateFormat("MM-dd-yyyy HH:mm").parse(tfArrivalTime.getText());
 					} catch (ParseException e1) {
 						e1.printStackTrace();
 					}
