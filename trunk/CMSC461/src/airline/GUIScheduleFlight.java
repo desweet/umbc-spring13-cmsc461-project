@@ -67,6 +67,8 @@ public class GUIScheduleFlight {
 		frmScheduleFlight.setLocationRelativeTo(null);
 		frmScheduleFlight.getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
 		
+		final Airline airline = new Airline();
+		
 		JLabel lblFlightNumber = new JLabel("Flight number:");
 		lblFlightNumber.setHorizontalAlignment(SwingConstants.CENTER);
 		frmScheduleFlight.getContentPane().add(lblFlightNumber);
@@ -174,7 +176,6 @@ public class GUIScheduleFlight {
 					
 					Flight flight = new Flight(flightNumber, date, aircraftType, source, destination, departureTime, arrivalTime);
 					
-					Airline airline = new Airline();
 					boolean flightStatus = airline.addFlight(flight);
 					
 					if (flightStatus == false)
