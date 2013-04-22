@@ -10,6 +10,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -190,7 +191,11 @@ public class GUIScheduleFlight {
 					
 					Flight flight = new Flight(flightNumber, date, aircraftType, source, destination, departureTime, arrivalTime);
 					
-					boolean flightStatus = airline.addFlight(flight);
+					//if there are no stops, just pass me this empty ArrayList 
+					//otherwise fill it up in order --Matt
+					ArrayList<Stop> stops = new ArrayList<Stop>();
+					
+					boolean flightStatus = airline.addFlight(flight, stops);
 					
 					if (flightStatus == false)
 						lblFlightStatusStatus.setText("Failed");
