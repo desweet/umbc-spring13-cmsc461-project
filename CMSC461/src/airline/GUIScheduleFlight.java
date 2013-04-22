@@ -186,7 +186,7 @@ public class GUIScheduleFlight {
 						e1.printStackTrace();
 					}
 					
-//					System.out.println(String.valueOf(sourceCities[1].getSelectedItem()));
+					// System.out.println(String.valueOf(sourceCities[1].getSelectedItem()));
 					
 					Flight flight = new Flight(flightNumber, date, aircraftType, source, destination, departureTime, arrivalTime);
 					
@@ -229,7 +229,6 @@ public class GUIScheduleFlight {
 				frmScheduleFlight.getContentPane().add(new JLabel("Intermediate arrival date/time:"));
 				frmScheduleFlight.getContentPane().add(new JTextField());
 				
-				System.out.println(index);
 				index++;
 				
 				frmScheduleFlight.setSize(frmScheduleFlight.getWidth(), frmScheduleFlight.getHeight() + (btnSubmit.getHeight() * 4));
