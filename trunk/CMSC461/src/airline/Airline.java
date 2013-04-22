@@ -27,7 +27,7 @@ public class Airline {
 	 * @input: Flight object to add to database
 	 * @output: Boolean for if adding the flight was successful
 	 ******************************************************************************************************************/
-	public Boolean addFlight(Flight f){
+	public Boolean addFlight(Flight f, ArrayList<Stop> stops){
 		try {
 			PreparedStatement insertStatement = 
 					CONN.prepareStatement("INSERT into flights values (?, ?, ?, ?, ?, ?, ?)");
@@ -41,9 +41,14 @@ public class Airline {
 			insertStatement.setTimestamp(6, new Timestamp(f.getDeparture().getTime()));						  		  // depart time
 			insertStatement.setTimestamp(7, new Timestamp(f.getArrival().getTime()));						  		  // arrival time
 			
-			//insert into database
+			//insert flight info into database
 			insertStatement.executeUpdate();
 			insertStatement.close();
+			
+			//if there are stops
+			if (stops.size() != 0){
+				//add stops
+			}
 		} catch (Exception e){
 			System.out.println("Failure: " + e.getMessage());
 			return false;
@@ -291,7 +296,7 @@ public class Airline {
 	 *****************************************************************************************************************************/
 	public int numStops( int flightNum ){
 		int count = 0;
-		
+		//get count from Stops table
 		return count;
 	}
 	
@@ -318,6 +323,18 @@ public class Airline {
 			System.out.println("Failure: " + e.getMessage());
 			return minutes;
 		}
+	}
+	
+	/*********************************************************************************************************************************
+	 * @param flightNum
+	 * @return ArrayList of stops in order
+	 *********************************************************************************************************************************/
+	public ArrayList<Stop> getStops(int flightNum){
+		ArrayList<Stop> stops = new ArrayList<Stop>();
+		
+		//get the stops ordered by stop_number
+		
+		return stops;
 	}
 	
 	
