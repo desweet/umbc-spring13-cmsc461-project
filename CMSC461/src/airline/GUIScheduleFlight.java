@@ -31,6 +31,18 @@ public class GUIScheduleFlight {
 	private JComboBox<String> cbDestination;
 	private JLabel lblAircraftType;
 	private JComboBox<String> cbAircraftType;
+	private JButton btnAddCities;
+	private JLabel lblBlank;
+	
+	@SuppressWarnings("rawtypes")
+	private JComboBox[] sourceCities = new JComboBox[99];
+	@SuppressWarnings("rawtypes")
+	private JComboBox[] destinationCities = new JComboBox[99];
+	
+	private JTextField[] sourceTimes = new JTextField[99];
+	private JTextField[] destinationTimes = new JTextField[99];
+	
+	private int index = 0;
 
 	/**
 	 * Launch the application.
@@ -62,7 +74,7 @@ public class GUIScheduleFlight {
 		frmScheduleFlight = new JFrame();
 		frmScheduleFlight.setResizable(false);
 		frmScheduleFlight.setTitle("Schedule Flight");
-		frmScheduleFlight.setBounds(100, 100, 300, 300);
+		frmScheduleFlight.setBounds(100, 100, 400, 300);
 		frmScheduleFlight.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmScheduleFlight.setLocationRelativeTo(null);
 		frmScheduleFlight.getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
@@ -174,6 +186,8 @@ public class GUIScheduleFlight {
 						e1.printStackTrace();
 					}
 					
+//					System.out.println(String.valueOf(sourceCities[1].getSelectedItem()));
+					
 					Flight flight = new Flight(flightNumber, date, aircraftType, source, destination, departureTime, arrivalTime);
 					
 					boolean flightStatus = airline.addFlight(flight);
@@ -191,6 +205,40 @@ public class GUIScheduleFlight {
 		
 		lblSubmitStatus.setHorizontalAlignment(SwingConstants.CENTER);
 		frmScheduleFlight.getContentPane().add(lblSubmitStatus);
+		
+		btnAddCities = new JButton("Add Cities");
+		btnAddCities.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				sourceCities[index] = new JComboBox<String>(new String[] {"", "New York, NY", "Washington, D.C.", "Baltimore, MD", "Los Angeles, CA", "San Francisco, CA", "Seattle, WA", "Chicago, IL", "Newark, NJ", "Detroit, MI", "Boston, MA", "Raleigh, NC", "Tucson, AZ", "Columbus, OH", "Tampa, FL", "Houston, TX", "Las Vegas, NV", "Minneapolis, MN", "Atlanta, GA", "Pittsburgh, PA", "Toronto, Canada"});
+				destinationCities[index] = new JComboBox<String>(new String[] {"", "New York, NY", "Washington, D.C.", "Baltimore, MD", "Los Angeles, CA", "San Francisco, CA", "Seattle, WA", "Chicago, IL", "Newark, NJ", "Detroit, MI", "Boston, MA", "Raleigh, NC", "Tucson, AZ", "Columbus, OH", "Tampa, FL", "Houston, TX", "Las Vegas, NV", "Minneapolis, MN", "Atlanta, GA", "Pittsburgh, PA", "Toronto, Canada"});
+				sourceTimes[index] = new JTextField();
+				destinationTimes[index] = new JTextField();
+				
+				sourceTimes[index].setHorizontalAlignment(SwingConstants.CENTER);
+				destinationTimes[index].setHorizontalAlignment(SwingConstants.CENTER);
+				
+				frmScheduleFlight.getContentPane().add(new JLabel("Intermediate source:"));
+				frmScheduleFlight.getContentPane().add(sourceCities[index]);
+				
+				frmScheduleFlight.getContentPane().add(new JLabel("Intermediate destination:"));
+				frmScheduleFlight.getContentPane().add(destinationCities[index]);
+				
+				frmScheduleFlight.getContentPane().add(new JLabel("Intermediate departure date/time:"));
+				frmScheduleFlight.getContentPane().add(new JTextField());
+				
+				frmScheduleFlight.getContentPane().add(new JLabel("Intermediate arrival date/time:"));
+				frmScheduleFlight.getContentPane().add(new JTextField());
+				
+				System.out.println(index);
+				index++;
+				
+				frmScheduleFlight.setSize(frmScheduleFlight.getWidth(), frmScheduleFlight.getHeight() + (btnSubmit.getHeight() * 4));
+			}
+		});
+		frmScheduleFlight.getContentPane().add(btnAddCities);
+		
+		lblBlank = new JLabel("");
+		frmScheduleFlight.getContentPane().add(lblBlank);
 	}
 
 }
