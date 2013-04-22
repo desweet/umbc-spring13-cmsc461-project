@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 
 public class GUIMain {
 
-	private JFrame frmAirlineManager;
+	JFrame frmMain;
 
 	/**
 	 * Launch the application.
@@ -19,7 +19,7 @@ public class GUIMain {
 			public void run() {
 				try {
 					GUIMain window = new GUIMain();
-					window.frmAirlineManager.setVisible(true);
+					window.frmMain.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -38,12 +38,12 @@ public class GUIMain {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmAirlineManager = new JFrame();
-		frmAirlineManager.setResizable(false);
-		frmAirlineManager.setTitle("Airline Manager");
-		frmAirlineManager.setBounds(100, 100, 450, 300);
-		frmAirlineManager.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmAirlineManager.setLocationRelativeTo(null);
+		frmMain = new JFrame();
+		frmMain.setResizable(false);
+		frmMain.setTitle("Airline Manager");
+		frmMain.setBounds(100, 100, 450, 300);
+		frmMain.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmMain.setLocationRelativeTo(null);
 		
 		JButton btnScheduleFlight = new JButton("Schedule Flight");
 		btnScheduleFlight.addActionListener(new ActionListener() {
@@ -70,9 +70,9 @@ public class GUIMain {
 				}
 			}
 		});
-		frmAirlineManager.getContentPane().setLayout(null);
-		frmAirlineManager.getContentPane().add(btnScheduleFlight);
-		frmAirlineManager.getContentPane().add(btnBookTicket);
+		frmMain.getContentPane().setLayout(null);
+		frmMain.getContentPane().add(btnScheduleFlight);
+		frmMain.getContentPane().add(btnBookTicket);
 		
 		JButton btnCheckIn = new JButton("Check In");
 		btnCheckIn.addActionListener(new ActionListener() {
@@ -86,7 +86,7 @@ public class GUIMain {
 			}
 		});
 		btnCheckIn.setBounds(224, 92, 200, 70);
-		frmAirlineManager.getContentPane().add(btnCheckIn);
+		frmMain.getContentPane().add(btnCheckIn);
 		
 		JButton btnModifyFlight = new JButton("Modify Flight");
 		btnModifyFlight.addActionListener(new ActionListener() {
@@ -100,7 +100,7 @@ public class GUIMain {
 			}
 		});
 		btnModifyFlight.setBounds(10, 92, 200, 70);
-		frmAirlineManager.getContentPane().add(btnModifyFlight);
+		frmMain.getContentPane().add(btnModifyFlight);
 		
 		JButton btnFlightArrival = new JButton("Flight Arrival");
 		btnFlightArrival.addActionListener(new ActionListener() {
@@ -114,7 +114,7 @@ public class GUIMain {
 			}
 		});
 		btnFlightArrival.setBounds(10, 173, 200, 70);
-		frmAirlineManager.getContentPane().add(btnFlightArrival);
+		frmMain.getContentPane().add(btnFlightArrival);
 		
 		JButton btnAbout = new JButton("About");
 		btnAbout.addActionListener(new ActionListener() {
@@ -128,6 +128,6 @@ public class GUIMain {
 			}
 		});
 		btnAbout.setBounds(224, 173, 200, 70);
-		frmAirlineManager.getContentPane().add(btnAbout);
+		frmMain.getContentPane().add(btnAbout);
 	}
 }
