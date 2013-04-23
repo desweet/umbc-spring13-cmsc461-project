@@ -36,12 +36,10 @@ public class GUIScheduleFlight {
 	private JLabel lblBlank;
 	
 	@SuppressWarnings("rawtypes")
-	private JComboBox[] sourceCities = new JComboBox[99];
-	@SuppressWarnings("rawtypes")
-	private JComboBox[] destinationCities = new JComboBox[99];
+	private JComboBox[] cities = new JComboBox[99];
 	
-	private JTextField[] sourceTimes = new JTextField[99];
-	private JTextField[] destinationTimes = new JTextField[99];
+	private JTextField[] cityArrival = new JTextField[99];
+	private JTextField[] cityDeparture = new JTextField[99];
 	
 	private int index = 0;
 
@@ -214,29 +212,25 @@ public class GUIScheduleFlight {
 		btnAddCities = new JButton("Add Cities");
 		btnAddCities.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				sourceCities[index] = new JComboBox<String>(new String[] {"", "New York, NY", "Washington, D.C.", "Baltimore, MD", "Los Angeles, CA", "San Francisco, CA", "Seattle, WA", "Chicago, IL", "Newark, NJ", "Detroit, MI", "Boston, MA", "Raleigh, NC", "Tucson, AZ", "Columbus, OH", "Tampa, FL", "Houston, TX", "Las Vegas, NV", "Minneapolis, MN", "Atlanta, GA", "Pittsburgh, PA", "Toronto, Canada"});
-				destinationCities[index] = new JComboBox<String>(new String[] {"", "New York, NY", "Washington, D.C.", "Baltimore, MD", "Los Angeles, CA", "San Francisco, CA", "Seattle, WA", "Chicago, IL", "Newark, NJ", "Detroit, MI", "Boston, MA", "Raleigh, NC", "Tucson, AZ", "Columbus, OH", "Tampa, FL", "Houston, TX", "Las Vegas, NV", "Minneapolis, MN", "Atlanta, GA", "Pittsburgh, PA", "Toronto, Canada"});
-				sourceTimes[index] = new JTextField();
-				destinationTimes[index] = new JTextField();
+				cities[index] = new JComboBox<String>(new String[] {"", "New York, NY", "Washington, D.C.", "Baltimore, MD", "Los Angeles, CA", "San Francisco, CA", "Seattle, WA", "Chicago, IL", "Newark, NJ", "Detroit, MI", "Boston, MA", "Raleigh, NC", "Tucson, AZ", "Columbus, OH", "Tampa, FL", "Houston, TX", "Las Vegas, NV", "Minneapolis, MN", "Atlanta, GA", "Pittsburgh, PA", "Toronto, Canada"});
+				cityArrival[index] = new JTextField();
+				cityDeparture[index] = new JTextField();
 				
-				sourceTimes[index].setHorizontalAlignment(SwingConstants.CENTER);
-				destinationTimes[index].setHorizontalAlignment(SwingConstants.CENTER);
+				cityArrival[index].setHorizontalAlignment(SwingConstants.CENTER);
+				cityDeparture[index].setHorizontalAlignment(SwingConstants.CENTER);
 				
-				frmScheduleFlight.getContentPane().add(new JLabel("Intermediate source:"));
-				frmScheduleFlight.getContentPane().add(sourceCities[index]);
-				
-				frmScheduleFlight.getContentPane().add(new JLabel("Intermediate destination:"));
-				frmScheduleFlight.getContentPane().add(destinationCities[index]);
-				
-				frmScheduleFlight.getContentPane().add(new JLabel("Intermediate departure date/time:"));
-				frmScheduleFlight.getContentPane().add(new JTextField());
+				frmScheduleFlight.getContentPane().add(new JLabel("Intermediate city:"));
+				frmScheduleFlight.getContentPane().add(cities[index]);
 				
 				frmScheduleFlight.getContentPane().add(new JLabel("Intermediate arrival date/time:"));
-				frmScheduleFlight.getContentPane().add(new JTextField());
+				frmScheduleFlight.getContentPane().add(cityArrival[index]);
+				
+				frmScheduleFlight.getContentPane().add(new JLabel("Intermediate departure date/time:"));
+				frmScheduleFlight.getContentPane().add(cityDeparture[index]);
 				
 				index++;
 				
-				frmScheduleFlight.setSize(frmScheduleFlight.getWidth(), frmScheduleFlight.getHeight() + (btnSubmit.getHeight() * 4));
+				frmScheduleFlight.setSize(frmScheduleFlight.getWidth(), frmScheduleFlight.getHeight() + (btnSubmit.getHeight() * 3));
 			}
 		});
 		frmScheduleFlight.getContentPane().add(btnAddCities);
