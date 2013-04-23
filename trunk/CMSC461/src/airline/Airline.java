@@ -27,7 +27,7 @@ public class Airline {
 	 * @input: Flight object to add to database
 	 * @output: Boolean for if adding the flight was successful
 	 ******************************************************************************************************************/
-	public Boolean addFlight(Flight f, ArrayList<Stop> stops){
+	public Boolean scheduleFlight(Flight f, ArrayList<Stop> stops){
 		try {
 			PreparedStatement insertStatement = 
 					CONN.prepareStatement("INSERT into flights values (?, ?, ?, ?, ?, ?, ?)");

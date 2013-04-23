@@ -193,7 +193,7 @@ public class GUIScheduleFlight {
 					//otherwise fill it up in order --Matt
 					ArrayList<Stop> stops = new ArrayList<Stop>();
 					
-					boolean flightStatus = airline.addFlight(flight, stops);
+					boolean flightStatus = airline.scheduleFlight(flight, stops);
 					
 					if (flightStatus == false)
 						lblFlightStatusStatus.setText("Failed");
