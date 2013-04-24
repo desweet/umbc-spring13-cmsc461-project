@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.regex.Pattern;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.swing.JComboBox;
@@ -162,27 +163,25 @@ public class GUIScheduleFlight {
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (tfFlightNumber.getText().trim().equals(""))
-					lblSubmitStatus.setText("Required field(s)");
+					setStatus("", "Required field(s)");
 				else if (tfDate.getText().trim().equals(""))
-					lblSubmitStatus.setText("Required field(s)");
+					setStatus("", "Required field(s)");
 				else if (String.valueOf(cbSource.getSelectedItem()).trim().equals(""))
-					lblSubmitStatus.setText("Required field(s)");
+					setStatus("", "Required field(s)");
 				else if (String.valueOf(cbDestination.getSelectedItem()).trim().equals(""))
-					lblSubmitStatus.setText("Required field(s)");
+					setStatus("", "Required field(s)");
 				else if (String.valueOf(cbAircraftType.getSelectedItem()).trim().equals(""))
-					lblSubmitStatus.setText("Required field(s)");
+					setStatus("", "Required field(s)");
 				else if (tfDepartureTime.getText().trim().equals(""))
-					lblSubmitStatus.setText("Required field(s)");
+					setStatus("", "Required field(s)");
 				else if (tfArrivalTime.getText().trim().equals(""))
-					lblSubmitStatus.setText("Required field(s)");
-//				for (int i = 0; i < index; i++) {
-//					if (String.valueOf(cities[i].getSelectedItem()).trim().equals(""))
-//						lblSubmitStatus.setText("Required field(s)");
-//					else if (cityArrival[i].getText().trim().equals(""))
-//						lblSubmitStatus.setText("Required field(s)");
-//					else if (cityDeparture[i].getText().trim().equals(""))
-//						lblSubmitStatus.setText("Required field(s)");
-//				}
+					setStatus("", "Required field(s)");
+				else if (!complete().equals(""))
+					setStatus("", complete());
+				else if(!Pattern.matches("[0-9]+", tfFlightNumber.getText().trim()))
+					setStatus("", "Invalid flight number");
+				else if(!Pattern.matches("[0-9]{2}-[0-9]{2}-[0-9]{4}", tfDate.getText().trim()))
+					setStatus("", "Invalid date");
 				else {
 					int flightNumber = Integer.parseInt(tfFlightNumber.getText());
 					String source = String.valueOf(cbSource.getSelectedItem());
@@ -226,11 +225,9 @@ public class GUIScheduleFlight {
 					boolean flightStatus = false;
 					
 					if (flightStatus == false)
-						lblFlightStatusStatus.setText("Failed");
+						setStatus("Failed", "");
 					else
-						lblFlightStatusStatus.setText("Created");
-					
-					lblSubmitStatus.setText("");
+						setStatus("Created", "");
 				}
 			}
 		});
@@ -268,5 +265,28 @@ public class GUIScheduleFlight {
 		lblBlank = new JLabel("");
 		frmScheduleFlight.getContentPane().add(lblBlank);
 	}
-
+	
+	private String complete() {
+		String status = "";
+		if (index > 0) {
+			for (int i = 0; i < index; i++) {
+				if (String.valueOf(cities[i].getSelectedItem()).trim().equals(""))
+					status = "Required field(s)";
+				else if (cityArrival[i].getText().trim().equals(""))
+					status = "Required field(s)";
+				else if (cityDeparture[i].getText().trim().equals(""))
+					status = "Required field(s)";
+				else if(!Pattern.matches("[0-9]{2}-[0-9]{2}-[0-9]{4} [0-9]{2}:[0-9]{2}", cityArrival[i].getText().trim()))
+					status = "Invalid arrival date";
+				else if(!Pattern.matches("[0-9]{2}-[0-9]{2}-[0-9]{4} [0-9]{2}:[0-9]{2}", cityDeparture[i].getText().trim()))
+					status = "Invalid departure date";
+			}
+		}
+		return status;
+	}
+	
+	private void setStatus(String flightStatus, String submitStatus) {
+		lblFlightStatusStatus.setText(flightStatus);
+		lblSubmitStatus.setText(submitStatus);
+	}
 }
