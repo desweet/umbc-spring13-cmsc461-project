@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 public class GUIModifyFlight {
 
@@ -100,16 +101,24 @@ public class GUIModifyFlight {
 		frmModifyFlight.getContentPane().add(lblFlightStatusStatus);
 		
 		lblSubmitStatus = new JLabel("");
-		
 		btnSubmit = new JButton("Submit");
+		
+//		cbFlightNumber.setSelectedIndex(1);
+//		tfDepartureDateTime.setText("04-25-2013 10:00");
+//		tfArrivalDateTime.setText("04-26-2013 01:00");
+		
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (String.valueOf(cbFlightNumber.getSelectedItem()).trim().equals(""))
-					lblSubmitStatus.setText("Required field(s)");
+					setStatus("", "Required field(s)");
 				else if (tfDepartureDateTime.getText().trim().equals(""))
-					lblSubmitStatus.setText("Required field(s)");
+					setStatus("", "Required field(s)");
 				else if (tfArrivalDateTime.getText().trim().equals(""))
-					lblSubmitStatus.setText("Required field(s)");
+					setStatus("", "Required field(s)");
+				else if(!Pattern.matches("[0-9]{2}-[0-9]{2}-[0-9]{4} [0-9]{2}:[0-9]{2}", tfDepartureDateTime.getText().trim()))
+					setStatus("", "Invalid departure date");
+				else if(!Pattern.matches("[0-9]{2}-[0-9]{2}-[0-9]{4} [0-9]{2}:[0-9]{2}", tfArrivalDateTime.getText().trim()))
+					setStatus("", "Invalid arrival date");
 				else {
 					int flightNumber = Integer.parseInt(String.valueOf(cbFlightNumber.getSelectedItem()));
 					
@@ -126,11 +135,9 @@ public class GUIModifyFlight {
 					boolean modifyStatus = airline.modifyFlight(flightNumber, departureTime, arrivalTime);
 					
 					if (modifyStatus == false)
-						lblFlightStatusStatus.setText("Failed");
+						setStatus("Failed", "");
 					else
-						lblFlightStatusStatus.setText("Updated");
-					
-					lblSubmitStatus.setText("");
+						setStatus("Updated", "");
 				}
 			}
 		});
@@ -140,4 +147,8 @@ public class GUIModifyFlight {
 		frmModifyFlight.getContentPane().add(lblSubmitStatus);
 	}
 
+	private void setStatus(String flightStatus, String submitStatus) {
+		lblFlightStatusStatus.setText(flightStatus);
+		lblSubmitStatus.setText(submitStatus);
+	}
 }
