@@ -149,8 +149,16 @@ public class GUIScheduleFlight {
 		frmScheduleFlight.getContentPane().add(lblFlightStatusStatus);
 		
 		lblSubmitStatus = new JLabel("");
-		
 		btnSubmit = new JButton("Submit");
+		
+		tfFlightNumber.setText("1");
+		tfDate.setText("04-24-2013");
+		cbSource.setSelectedIndex(1);
+		cbDestination.setSelectedIndex(2);
+		cbAircraftType.setSelectedIndex(1);
+		tfDepartureTime.setText("04-25-2013 10:00");
+		tfArrivalTime.setText("04-26-2013 01:00");
+		
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (tfFlightNumber.getText().trim().equals(""))
@@ -167,6 +175,14 @@ public class GUIScheduleFlight {
 					lblSubmitStatus.setText("Required field(s)");
 				else if (tfArrivalTime.getText().trim().equals(""))
 					lblSubmitStatus.setText("Required field(s)");
+//				for (int i = 0; i < index; i++) {
+//					if (String.valueOf(cities[i].getSelectedItem()).trim().equals(""))
+//						lblSubmitStatus.setText("Required field(s)");
+//					else if (cityArrival[i].getText().trim().equals(""))
+//						lblSubmitStatus.setText("Required field(s)");
+//					else if (cityDeparture[i].getText().trim().equals(""))
+//						lblSubmitStatus.setText("Required field(s)");
+//				}
 				else {
 					int flightNumber = Integer.parseInt(tfFlightNumber.getText());
 					String source = String.valueOf(cbSource.getSelectedItem());
@@ -185,15 +201,29 @@ public class GUIScheduleFlight {
 						e1.printStackTrace();
 					}
 					
-					// System.out.println(String.valueOf(sourceCities[1].getSelectedItem()));
-					
 					Flight flight = new Flight(flightNumber, date, aircraftType, source, destination, departureTime, arrivalTime);
 					
-					//if there are no stops, just pass me this empty ArrayList 
-					//otherwise fill it up in order --Matt
 					ArrayList<Stop> stops = new ArrayList<Stop>();
 					
-					boolean flightStatus = airline.scheduleFlight(flight, stops);
+					if (index > 0) {
+						for (int i = 0; i < index; i++) {
+							Date arrival = null;
+							Date departure = null;
+							
+							try {
+								arrival = new SimpleDateFormat("MM-dd-yyyy HH:mm").parse(cityArrival[i].getText());
+								departure = new SimpleDateFormat("MM-dd-yyyy HH:mm").parse(cityDeparture[i].getText());
+							} catch (ParseException e1) {
+								e1.printStackTrace();
+							}
+							
+							// i or i+1?
+							stops.add(new Stop(flightNumber, i, String.valueOf(cities[i].getSelectedItem()), arrival, departure));
+						}
+					}
+					
+//					boolean flightStatus = airline.addFlight(flight, stops);
+					boolean flightStatus = false;
 					
 					if (flightStatus == false)
 						lblFlightStatusStatus.setText("Failed");
