@@ -34,7 +34,7 @@ public class Airline {
 			
 			//setting the parameters
 			insertStatement.setInt(1, f.getFlightNumber());
-			insertStatement.setDate(2, new java.sql.Date(System.currentTimeMillis())); 	  	  // date
+			insertStatement.setDate(2, new java.sql.Date(System.currentTimeMillis())); 	  	  						  // date
 			insertStatement.setString(3, f.getAircraftType());														  // aircraft
 			insertStatement.setString(4, f.getSource());													  		  // source
 			insertStatement.setString(5, f.getDestination());														  // arrival
@@ -45,9 +45,25 @@ public class Airline {
 			insertStatement.executeUpdate();
 			insertStatement.close();
 			
-			//if there are stops
+			
+			
+			//if there are stops, add them
 			if (stops.size() != 0){
-				//add stops
+				for(int i = 0; i < stops.size(); i++){
+					
+					Stop s = stops.get(i);
+					
+					insertStatement = CONN.prepareStatement("INSERT into stops values (default, ?, ?, ?, ?, ?)");
+					
+					insertStatement.setInt(1, f.getFlightNumber());													// flight number
+					insertStatement.setInt(2, i + 1);																// stop number
+					insertStatement.setString(3, s.getCity());													 	// city
+					insertStatement.setTimestamp(4, new Timestamp(s.getArrival().getTime())); 						// arrival time
+					insertStatement.setTimestamp(5, new Timestamp(s.getDepature().getTime()));						// departure time
+					
+					insertStatement.executeUpdate();
+					insertStatement.close();
+				}
 			}
 		} catch (Exception e){
 			System.out.println("Failure: " + e.getMessage());
@@ -296,7 +312,16 @@ public class Airline {
 	 *****************************************************************************************************************************/
 	public int numStops( int flightNum ){
 		int count = 0;
-		//get count from Stops table
+		try {
+			PreparedStatement query = CONN.prepareStatement("SELECT count(*) FROM stops WHERE flight_number = ?");
+	
+			query.setInt(1, flightNum);
+			ResultSet result = query.executeQuery();
+			result.first();
+			count = result.getInt(1);
+		} catch (Exception e) {
+			System.out.println("Failure! " + e.getMessage());
+		}
 		return count;
 	}
 	
@@ -330,29 +355,45 @@ public class Airline {
 	 * @return ArrayList of stops in order
 	 *********************************************************************************************************************************/
 	public ArrayList<Stop> getStops(int flightNum){
+		
 		ArrayList<Stop> stops = new ArrayList<Stop>();
 		
-		//get the stops ordered by stop_number
-		
-		return stops;
+		try {
+			PreparedStatement query = CONN.prepareStatement("SELECT * FROM stops WHERE flight_number = ? ORDER BY stop_number");
+			query.setInt(1,  flightNum);
+			
+			ResultSet result = query.executeQuery();
+			result.first();
+			
+			//possibly add check to only return stops that haven't already occurred.
+			//prime the loop
+			stops.add( new Stop(result.getInt(1), result.getInt(2), result.getInt(3), result.getString(4), result.getDate(5), result.getDate(6)));
+			while (result.next()){
+				stops.add( new Stop(result.getInt(1), result.getInt(2), result.getInt(3), result.getString(4), result.getDate(5), result.getDate(6)));
+			}
+			return stops;
+		} catch (Exception e){
+			System.out.println("Failure: " + e.getMessage());
+			return stops;
+		}
 	}
-	
-	
-	//-----------------------------------------------------Private Methods-----------------------------------------------------------------------
-	
-	
-	
-	
-	//----------------------------------------------------End Private Methods---------------------------------------------------------------------
-	
 	
 	
 	// main for testing
 	public static void main(String [ ] args){
 		
+		
+		
 //		System.out.println("initializing Airline");
 		Airline a = new Airline();
 
+		ArrayList<Stop> stops = a.getStops(33);
+		
+		System.out.println(a.numStops(33));
+		
+		for(int i = 0; i < stops.size(); i++){
+			System.out.println(stops.get(i).getStopNum() + "  " + stops.get(i).getCity());
+		}
 //		double minutes = a.timeTaken(5);
 //		int hours = (int) (minutes / 60);
 //		int min = (int) (minutes % 60);
