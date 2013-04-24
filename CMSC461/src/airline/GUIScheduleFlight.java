@@ -152,13 +152,13 @@ public class GUIScheduleFlight {
 		lblSubmitStatus = new JLabel("");
 		btnSubmit = new JButton("Submit");
 		
-		tfFlightNumber.setText("1");
-		tfDate.setText("04-24-2013");
-		cbSource.setSelectedIndex(1);
-		cbDestination.setSelectedIndex(2);
-		cbAircraftType.setSelectedIndex(1);
-		tfDepartureTime.setText("04-25-2013 10:00");
-		tfArrivalTime.setText("04-26-2013 01:00");
+//		tfFlightNumber.setText("1");
+//		tfDate.setText("04-24-2013");
+//		cbSource.setSelectedIndex(1);
+//		cbDestination.setSelectedIndex(2);
+//		cbAircraftType.setSelectedIndex(1);
+//		tfDepartureTime.setText("04-25-2013 10:00");
+//		tfArrivalTime.setText("04-26-2013 01:00");
 		
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -225,8 +225,8 @@ public class GUIScheduleFlight {
 						}
 					}
 					
-//					boolean flightStatus = airline.addFlight(flight, stops);
-					boolean flightStatus = false;
+					boolean flightStatus = airline.scheduleFlight(flight, stops);
+//					boolean flightStatus = false;
 					
 					if (flightStatus == false)
 						setStatus("Failed", "");
