@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.regex.Pattern;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -30,6 +31,9 @@ public class GUIBookTicket {
 	private JTextField tfPhoneOffice;
 	private JTextField tfLastName;
 	private JTextField tfAge;
+	private JLabel lblPassengerStatusStatus;
+	private JLabel lblReservationStatusStatus;
+	private JLabel lblSubmitStatus;
 
 	/**
 	 * Launch the application.
@@ -205,7 +209,7 @@ public class GUIBookTicket {
 		lblPassengerStatus.setHorizontalAlignment(SwingConstants.CENTER);
 		frmBookTicket.getContentPane().add(lblPassengerStatus);
 		
-		final JLabel lblPassengerStatusStatus = new JLabel("");
+		lblPassengerStatusStatus = new JLabel("");
 		lblPassengerStatusStatus.setHorizontalAlignment(SwingConstants.CENTER);
 		frmBookTicket.getContentPane().add(lblPassengerStatusStatus);
 		
@@ -213,49 +217,70 @@ public class GUIBookTicket {
 		lblReservationStatus.setHorizontalAlignment(SwingConstants.CENTER);
 		frmBookTicket.getContentPane().add(lblReservationStatus);
 		
-		final JLabel lblReservationStatusStatus = new JLabel("");
+		lblReservationStatusStatus = new JLabel("");
 		lblReservationStatusStatus.setHorizontalAlignment(SwingConstants.CENTER);
 		frmBookTicket.getContentPane().add(lblReservationStatusStatus);
 		
-		final JLabel lblSubmitStatus = new JLabel("");
+		lblSubmitStatus = new JLabel("");
+		
+//		tfSSN.setText("123456789");
+//		tfFirstName.setText("Derek");
+//		tfLastName.setText("Sweet");
+//		tfAge.setText("22");
+//		tfStreet.setText("Fallston Valley Drive");
+//		tfCity.setText("Fallston");
+//		tfState.setText("MD");
+//		tfZip.setText("21047");
+//		tfPhoneHome.setText("4108039778");
+//		tfPhoneOffice.setText("4439779169");
+//		tfEmail.setText("desweet3@gmail.com");
+//		cbFlightNumber.setSelectedIndex(1);
+//		cbFlightClass.setSelectedIndex(1);
+//		tfAmountPaid.setText("100");
 		
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (tfSSN.getText().trim().equals(""))
-					lblSubmitStatus.setText("Required field(s)");
+					setStatus("", "", "Required field(s)");
 				else if (tfFirstName.getText().trim().equals(""))
-					lblSubmitStatus.setText("Required field(s)");
+					setStatus("", "", "Required field(s)");
 				else if (tfLastName.getText().trim().equals(""))
-					lblSubmitStatus.setText("Required field(s)");
+					setStatus("", "", "Required field(s)");
 				else if (tfAge.getText().trim().equals(""))
-					lblSubmitStatus.setText("Required field(s)");
+					setStatus("", "", "Required field(s)");
 				else if (tfStreet.getText().trim().equals(""))
-					lblSubmitStatus.setText("Required field(s)");
+					setStatus("", "", "Required field(s)");
 				else if (tfCity.getText().trim().equals(""))
-					lblSubmitStatus.setText("Required field(s)");
+					setStatus("", "", "Required field(s)");
 				else if (tfState.getText().trim().equals(""))
-					lblSubmitStatus.setText("Required field(s)");
+					setStatus("", "", "Required field(s)");
 				else if (tfZip.getText().trim().equals(""))
-					lblSubmitStatus.setText("Required field(s)");
+					setStatus("", "", "Required field(s)");
 				else if (tfPhoneHome.getText().trim().equals("") && tfPhoneOffice.getText().trim().equals(""))
-					lblSubmitStatus.setText("Required field(s)");
+					setStatus("", "", "Required field(s)");
 				else if (tfEmail.getText().trim().equals(""))
-					lblSubmitStatus.setText("Required field(s)");
+					setStatus("", "", "Required field(s)");
 				else if (String.valueOf(cbFlightNumber.getSelectedItem()).trim().equals(""))
-					lblSubmitStatus.setText("Required field(s)");
+					setStatus("", "", "Required field(s)");
 				else if (String.valueOf(cbFlightClass.getSelectedItem()).trim().equals(""))
-					lblSubmitStatus.setText("Required field(s)");
+					setStatus("", "", "Required field(s)");
 				else if (tfAmountPaid.getText().trim().equals(""))
-					lblSubmitStatus.setText("Required field(s)");
-				else if (tfSSN.getText().length() != 9)
-					lblSubmitStatus.setText("Invalid SSN");
-				else if (tfZip.getText().length() != 5)
-					lblSubmitStatus.setText("Invalid zip code");
-				else if (!tfPhoneHome.getText().trim().equals("") && tfPhoneHome.getText().length() != 10)
-					lblSubmitStatus.setText("Invalid home phone");
-				else if (!tfPhoneOffice.getText().trim().equals("") && tfPhoneOffice.getText().length() != 10)
-					lblSubmitStatus.setText("Invalid office phone");
+					setStatus("", "", "Required field(s)");
+				else if(!Pattern.matches("[0-9]{9}", tfSSN.getText().trim()))
+					setStatus("", "", "Invalid SSN");
+				else if(!Pattern.matches("[0-9]+", tfAge.getText().trim()))
+					setStatus("", "", "Invalid age");
+				else if(!Pattern.matches("[0-9]+", tfApartmentNumber.getText().trim()) && !tfApartmentNumber.getText().trim().equals(""))
+					setStatus("", "", "Invalid apartment number");
+				else if(!Pattern.matches("[0-9]{5}", tfZip.getText().trim()))
+					setStatus("", "", "Invalid zip");
+				else if(!Pattern.matches("[0-9]{10}", tfPhoneHome.getText().trim()) && !tfPhoneHome.getText().trim().equals(""))
+					setStatus("", "", "Invalid home phone");
+				else if(!Pattern.matches("[0-9]{10}", tfPhoneOffice.getText().trim()) && !tfPhoneOffice.getText().trim().equals(""))
+					setStatus("", "", "Invalid office phone");
+				else if(!Pattern.matches("[0-9]+", tfAmountPaid.getText().trim()))
+					setStatus("", "", "Invalid amount paid");
 				else {
 					double ssn = Double.parseDouble(tfSSN.getText());
 					String firstName = tfFirstName.getText();
@@ -298,6 +323,8 @@ public class GUIBookTicket {
 					
 					boolean passengerStatus = airline.addPassenger(passenger);
 					String reservationStatus = airline.makeReservation(reservation);
+//					boolean passengerStatus = false;
+//					String reservationStatus = "failed";
 					
 					if (passengerStatus == false)
 					{
@@ -332,6 +359,12 @@ public class GUIBookTicket {
 		
 		lblSubmitStatus.setHorizontalAlignment(SwingConstants.CENTER);
 		frmBookTicket.getContentPane().add(lblSubmitStatus);
+	}
+	
+	private void setStatus(String passengerStatus, String reservationStatus, String submitStatus) {
+		lblPassengerStatusStatus.setText(passengerStatus);
+		lblReservationStatusStatus.setText(reservationStatus);
+		lblSubmitStatus.setText(submitStatus);
 	}
 
 }
