@@ -182,6 +182,10 @@ public class GUIScheduleFlight {
 					setStatus("", "Invalid flight number");
 				else if(!Pattern.matches("[0-9]{2}-[0-9]{2}-[0-9]{4}", tfDate.getText().trim()))
 					setStatus("", "Invalid date");
+				else if(!Pattern.matches("[0-9]{2}-[0-9]{2}-[0-9]{4} [0-9]{2}:[0-9]{2}", tfDepartureTime.getText().trim()))
+					setStatus("", "Invalid departure date");
+				else if(!Pattern.matches("[0-9]{2}-[0-9]{2}-[0-9]{4} [0-9]{2}:[0-9]{2}", tfArrivalTime.getText().trim()))
+					setStatus("", "Invalid arrival date");
 				else {
 					int flightNumber = Integer.parseInt(tfFlightNumber.getText());
 					String source = String.valueOf(cbSource.getSelectedItem());
