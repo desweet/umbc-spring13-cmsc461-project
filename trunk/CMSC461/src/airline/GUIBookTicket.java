@@ -279,7 +279,7 @@ public class GUIBookTicket {
 					setStatus("", "", "Invalid home phone");
 				else if(!Pattern.matches("[0-9]{10}", tfPhoneOffice.getText().trim()) && !tfPhoneOffice.getText().trim().equals(""))
 					setStatus("", "", "Invalid office phone");
-				else if(!Pattern.matches("[0-9]+", tfAmountPaid.getText().trim()))
+				else if(!Pattern.matches("[0-9]+(\\.[0-9]{2})?", tfAmountPaid.getText().trim()))
 					setStatus("", "", "Invalid amount paid");
 				else {
 					double ssn = Double.parseDouble(tfSSN.getText());

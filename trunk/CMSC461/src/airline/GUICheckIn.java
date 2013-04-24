@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.regex.Pattern;
 
 public class GUICheckIn {
 
@@ -55,7 +56,7 @@ public class GUICheckIn {
 		frmCheckIn = new JFrame();
 		frmCheckIn.setResizable(false);
 		frmCheckIn.setTitle("Check In");
-		frmCheckIn.setBounds(100, 100, 250, 170);
+		frmCheckIn.setBounds(100, 100, 280, 170);
 		frmCheckIn.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmCheckIn.setLocationRelativeTo(null);
 		frmCheckIn.getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
@@ -107,6 +108,10 @@ public class GUICheckIn {
 					lblSubmitStatus.setText("Required field(s)");
 				else if (tfSeatNumber.getText().trim().equals(""))
 					lblSubmitStatus.setText("Required field(s)");
+				else if(!Pattern.matches("[0-9]+", tfBaggageCarried.getText().trim()))
+					lblSubmitStatus.setText("Invalid baggage carried");
+				else if(!Pattern.matches("[0-9]+", tfSeatNumber.getText().trim()))
+					lblSubmitStatus.setText("Invalid seat number");
 				else {
 					double ssn = Double.parseDouble(String.valueOf(cbSSN.getSelectedItem()));
 					int baggageCarried = Integer.parseInt(tfBaggageCarried.getText());
