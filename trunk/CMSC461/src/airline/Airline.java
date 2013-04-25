@@ -177,7 +177,7 @@ public class Airline {
 	 ***********************************************************************************************************************/
 	public Boolean modifyStop (int flightNum, int stopNum, Date arrival, Date departure){
 		try {
-			PreparedStatement update = CONN.prepareStatement("UPDATE stops SET arrival_time = ?, depart_time = ? WHERE flight_number = ? and stop_number = ?");
+			PreparedStatement update = CONN.prepareStatement("UPDATE stops SET arrival_time = ?, departure_time = ? WHERE flight_number = ? and stop_number = ?");
 			
 			update.setTimestamp(1, new Timestamp(arrival.getTime()));
 			update.setTimestamp(2, new Timestamp(departure.getTime()));
@@ -393,6 +393,21 @@ public class Airline {
 			System.out.println("Failure: " + e.getMessage());
 			return stops;
 		}
+	}
+	
+	public Flight getFlight(int flightNum){
+		Flight f = null;
+		try {
+			PreparedStatement query = CONN.prepareStatement("SELECT * FROM flights WHERE flight_number = ?");
+			query.setInt(1,  flightNum);
+			
+			ResultSet r = query.executeQuery();
+			
+			f = new Flight(r.getInt(1), r.getDate(2), r.getString(3), r.getString(4), r.getString(5), r.getTimestamp(6), r.getTimestamp(7));
+		} catch (Exception e) {
+			System.out.println("Failure: " + e.getMessage());
+		}
+		return f;
 	}
 	
 	
