@@ -168,6 +168,30 @@ public class Airline {
 		return true;
 	}
 	
+	/***********************************************************************************************************************
+	 * @param flightNum
+	 * @param stopNum
+	 * @param arrival
+	 * @param departure
+	 * @return true on success : false on failure
+	 ***********************************************************************************************************************/
+	public Boolean modifyStop (int flightNum, int stopNum, Date arrival, Date departure){
+		try {
+			PreparedStatement update = CONN.prepareStatement("UPDATE stops SET arrival_time = ?, depart_time = ? WHERE flight_number = ? and stop_number = ?");
+			
+			update.setTimestamp(1, new Timestamp(arrival.getTime()));
+			update.setTimestamp(2, new Timestamp(departure.getTime()));
+			update.setInt(3, flightNum);
+			update.setInt(4, stopNum);
+			update.executeUpdate();
+			update.close();
+		} catch (Exception e){
+			System.out.println("Failure: " + e.getMessage());
+			return false;
+		}
+		return true;
+	}
+	
 	
 	/***********************************************************************************************************************
 	 * @input: none
@@ -363,11 +387,7 @@ public class Airline {
 			query.setInt(1,  flightNum);
 			
 			ResultSet result = query.executeQuery();
-			result.first();
 			
-			//possibly add check to only return stops that haven't already occurred.
-			//prime the loop
-			stops.add( new Stop(result.getInt(1), result.getInt(2), result.getInt(3), result.getString(4), result.getDate(5), result.getDate(6)));
 			while (result.next()){
 				stops.add( new Stop(result.getInt(1), result.getInt(2), result.getInt(3), result.getString(4), result.getDate(5), result.getDate(6)));
 			}
@@ -387,9 +407,13 @@ public class Airline {
 //		System.out.println("initializing Airline");
 		Airline a = new Airline();
 
-		ArrayList<Stop> stops = a.getStops(33);
+		ArrayList<String> pass = a.getPassengers();
+		for(int i = 0; i < pass.size(); i++){
+			System.out.println(pass.toArray()[2]);
+		}
+		ArrayList<Stop> stops = a.getStops(2);
 		
-		System.out.println(a.numStops(33));
+		System.out.println(a.numStops(2));
 		
 		for(int i = 0; i < stops.size(); i++){
 			System.out.println(stops.get(i).getStopNum() + "  " + stops.get(i).getCity());
