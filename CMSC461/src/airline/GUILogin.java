@@ -83,7 +83,7 @@ public class GUILogin {
 						}
 					}
 					else
-						lblLoginStatus.setText("Incorrect deets");
+						lblLoginStatus.setText("Incorrect details");
 				}
 					
 			}

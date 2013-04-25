@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -82,16 +83,24 @@ public class GUIModifyFlight {
 				if (String.valueOf(cbFlightNumber.getSelectedItem()).trim().equals(""))
 					setStatus("", "");
 				else {
-					System.out.println(Integer.parseInt(String.valueOf(cbFlightNumber.getSelectedItem())));
-					
 					ArrayList<Stop> stops = airline.getStops(Integer.parseInt(String.valueOf(cbFlightNumber.getSelectedItem())));
 					
 					ArrayList<String> stopCities = new ArrayList<String>();
+					
+					stopCities.add("");
+					
 					for (int i = 0; i < stops.size(); i++) {
 						stopCities.add(stops.get(i).getCity());
 					}
 					
 					cbStops.setModel(new DefaultComboBoxModel<String>(stopCities.toArray(new String[airline.getStops(Integer.parseInt(String.valueOf(cbFlightNumber.getSelectedItem()))).size()])));
+				
+					Flight flight = airline.getFlight(Integer.parseInt(String.valueOf(cbFlightNumber.getSelectedItem())));
+					
+					DateFormat df = new SimpleDateFormat("MM-dd-yyyy HH:mm");
+					
+					tfArrivalDateTime.setText(df.format(flight.getArrival()));
+					tfDepartureDateTime.setText(df.format(flight.getDeparture()));
 				}
 			}
 		});
@@ -103,14 +112,21 @@ public class GUIModifyFlight {
 		
 		cbStops.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (String.valueOf(cbStops.getSelectedItem()).trim().equals(""))
-					setStatus("", "");
+				if (String.valueOf(cbStops.getSelectedItem()).trim().equals("")) {
+					Flight flight = airline.getFlight(Integer.parseInt(String.valueOf(cbFlightNumber.getSelectedItem())));
+					
+					DateFormat df = new SimpleDateFormat("MM-dd-yyyy HH:mm");
+					
+					tfArrivalDateTime.setText(df.format(flight.getArrival()));
+					tfDepartureDateTime.setText(df.format(flight.getDeparture()));
+				}
 				else {
 					ArrayList<Stop> stops = airline.getStops(Integer.parseInt(String.valueOf(cbFlightNumber.getSelectedItem())));
 					
-					String city = stops.get(cbStops.getSelectedIndex()).getCity();
+					DateFormat df = new SimpleDateFormat("MM-dd-yyyy HH:mm");
 					
-					System.out.println(city);
+					tfArrivalDateTime.setText(df.format(stops.get(cbStops.getSelectedIndex() - 1).getArrival()));
+					tfDepartureDateTime.setText(df.format(stops.get(cbStops.getSelectedIndex() - 1).getDeparture()));
 				}
 			}
 		});
@@ -175,12 +191,24 @@ public class GUIModifyFlight {
 						e1.printStackTrace();
 					}
 					
-					boolean modifyStatus = airline.modifyFlight(flightNumber, departureTime, arrivalTime);
+					boolean modifyStatus;
+					if (String.valueOf(cbStops.getSelectedItem()).trim().equals("")) {
+						modifyStatus = airline.modifyFlight(flightNumber, departureTime, arrivalTime);
 					
-					if (modifyStatus == false)
-						setStatus("Failed", "");
-					else
-						setStatus("Updated", "");
+						if (modifyStatus == false)
+							setStatus("Failed", "");
+						else
+							setStatus("Updated flight", "");
+					}
+					else {
+						System.out.println(cbStops.getSelectedIndex() - 1);
+						modifyStatus = airline.modifyStop(flightNumber, cbStops.getSelectedIndex(), arrivalTime, departureTime);
+						
+						if (modifyStatus == false)
+							setStatus("Failed", "");
+						else
+							setStatus("Updated stop", "");
+					}
 				}
 			}
 		});
