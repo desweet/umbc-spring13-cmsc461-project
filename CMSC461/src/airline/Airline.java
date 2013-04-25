@@ -293,8 +293,11 @@ public class Airline {
 				return false;
 			}
 			
-			Statement update = CONN.createStatement( );
-			update.executeUpdate("UPDATE reservations SET status = \"checked-in\", num_bags = " + numBags + ", seat = " + seatNum + " WHERE SSN = " + SSN);
+			PreparedStatement update = CONN.prepareStatement("UPDATE reservations SET status = \"checked-in\", num_bags = ?, seat = ? WHERE SSN = ?");
+			update.setInt(1, numBags);
+			update.setInt(2,  seatNum);
+			update.setDouble(3, SSN);
+			update.executeUpdate();
 			update.close();
 			query.close();
 		} catch (Exception e) {
