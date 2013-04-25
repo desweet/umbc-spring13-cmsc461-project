@@ -386,7 +386,7 @@ public class Airline {
 			ResultSet result = query.executeQuery();
 			
 			while (result.next()){
-				stops.add( new Stop(result.getInt(1), result.getInt(2), result.getInt(3), result.getString(4), result.getDate(5), result.getDate(6)));
+				stops.add( new Stop(result.getInt(1), result.getInt(2), result.getInt(3), result.getString(4), result.getTimestamp(5), result.getTimestamp(6)));
 			}
 			return stops;
 		} catch (Exception e){
