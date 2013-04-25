@@ -402,6 +402,7 @@ public class Airline {
 			query.setInt(1,  flightNum);
 			
 			ResultSet r = query.executeQuery();
+			r.first();
 			
 			f = new Flight(r.getInt(1), r.getDate(2), r.getString(3), r.getString(4), r.getString(5), r.getTimestamp(6), r.getTimestamp(7));
 		} catch (Exception e) {
