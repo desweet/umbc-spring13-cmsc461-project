@@ -59,7 +59,7 @@ public class Airline {
 					insertStatement.setInt(2, i + 1);																// stop number
 					insertStatement.setString(3, s.getCity());													 	// city
 					insertStatement.setTimestamp(4, new Timestamp(s.getArrival().getTime())); 						// arrival time
-					insertStatement.setTimestamp(5, new Timestamp(s.getDepature().getTime()));						// departure time
+					insertStatement.setTimestamp(5, new Timestamp(s.getDeparture().getTime()));						// departure time
 					
 					insertStatement.executeUpdate();
 					insertStatement.close();
