@@ -11,6 +11,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class GUILogin {
 
@@ -69,24 +71,7 @@ public class GUILogin {
 		btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (tfUsername.getText().trim().equals(""))
-					lblLoginStatus.setText("Required field(s)");
-				else if (new String(tfPassword.getPassword()).equals(""))
-					lblLoginStatus.setText("Required field(s)");
-				else {
-					if (tfUsername.getText().equals("admin") && new String(tfPassword.getPassword()).equals("password")) {
-						frmLogin.dispose();
-						try {
-							GUIMain main = new GUIMain();
-							main.frmMain.setVisible(true);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-					else
-						lblLoginStatus.setText("Incorrect details");
-				}
-					
+				login();
 			}
 		});
 		frmLogin.getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
@@ -95,6 +80,13 @@ public class GUILogin {
 		frmLogin.getContentPane().add(lblPassword);
 		
 		tfPassword = new JPasswordField();
+		tfPassword.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				if ((arg0.getKeyCode() == KeyEvent.VK_ENTER))
+					login();
+			}
+		});
 		tfPassword.setHorizontalAlignment(SwingConstants.CENTER);
 		frmLogin.getContentPane().add(tfPassword);
 		frmLogin.getContentPane().add(btnLogin);
@@ -102,5 +94,24 @@ public class GUILogin {
 		lblLoginStatus.setHorizontalAlignment(SwingConstants.CENTER);
 		frmLogin.getContentPane().add(lblLoginStatus);
 	}
-
+	
+	private void login() {
+		if (tfUsername.getText().trim().equals(""))
+			lblLoginStatus.setText("Required field(s)");
+		else if (new String(tfPassword.getPassword()).equals(""))
+			lblLoginStatus.setText("Required field(s)");
+		else {
+			if (tfUsername.getText().equals("admin") && new String(tfPassword.getPassword()).equals("password")) {
+				frmLogin.dispose();
+				try {
+					GUIMain main = new GUIMain();
+					main.frmMain.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			else
+				lblLoginStatus.setText("Incorrect details");
+		}
+	}
 }
