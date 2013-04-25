@@ -9,30 +9,30 @@ public class Stop {
 	private int stopNum;
 	private String city;
 	private Date arrival;
-	private Date depature;
+	private Date departure;
 	
-	public Stop ( int flightNum, String city, Date arrival, Date depature){
+	public Stop ( int flightNum, String city, Date arrival, Date departure){
 		this.flightNum = flightNum;
 		this.city = city;
 		this.arrival = arrival;
-		this.depature = depature;
+		this.departure = departure;
 	}
 	
-	public Stop ( int flightNum, int stopNum, String city, Date arrival, Date depature){
+	public Stop ( int flightNum, int stopNum, String city, Date arrival, Date departure){
 		this.flightNum = flightNum;
 		this.stopNum = stopNum;
 		this.city = city;
 		this.arrival = arrival;
-		this.depature = depature;
+		this.departure = departure;
 	}
 	
-	public Stop ( int id, int flightNum, int stopNum, String city, Date arrival, Date depature){
+	public Stop ( int id, int flightNum, int stopNum, String city, Date arrival, Date departure){
 		this.id = id;
 		this.flightNum = flightNum;
 		this.stopNum = stopNum;
 		this.city = city;
 		this.arrival = arrival;
-		this.depature = depature;
+		this.departure = departure;
 	}
 
 	public int getId() {
@@ -75,11 +75,11 @@ public class Stop {
 		this.arrival = arrival;
 	}
 
-	public Date getDepature() {
-		return depature;
+	public Date getDeparture() {
+		return departure;
 	}
 
-	public void setDepature(Date depature) {
-		this.depature = depature;
+	public void setDeparture(Date departure) {
+		this.departure = departure;
 	}
 }
