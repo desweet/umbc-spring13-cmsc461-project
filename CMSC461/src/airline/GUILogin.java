@@ -48,6 +48,7 @@ public class GUILogin {
 	 */
 	private void initialize() {
 		frmLogin = new JFrame();
+		frmLogin.setResizable(false);
 		frmLogin.setTitle("Airline Manager");
 		frmLogin.setBounds(100, 100, 300, 150);
 		frmLogin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
