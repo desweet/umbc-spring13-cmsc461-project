@@ -1,7 +1,6 @@
 package airline;
 
 import java.sql.*;
-import java.text.DecimalFormat;
 import java.util.Date;
 //import java.util.Calendar;
 //import java.util.GregorianCalendar;
@@ -258,15 +257,13 @@ public class Airline {
 	public ArrayList<String> getPassengers( ){
 		try {
 			Statement query = CONN.createStatement();
-			ResultSet result = query.executeQuery("SELECT SSN FROM passengers");
+			ResultSet result = query.executeQuery("SELECT first_name, last_name FROM passengers");
 			
 			ArrayList<String> passengers = new ArrayList<String>();
 			passengers.add("");
 			
-			DecimalFormat df = new DecimalFormat("#");
-			
 			while (result.next()){
-				passengers.add(df.format(result.getDouble("SSN")));
+				passengers.add(result.getString(1) + " " + result.getString(2));
 			}
 			
 			return passengers;
