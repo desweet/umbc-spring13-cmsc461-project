@@ -323,8 +323,6 @@ public class GUIBookTicket {
 					
 					boolean passengerStatus = airline.addPassenger(passenger);
 					String reservationStatus = airline.makeReservation(reservation);
-//					boolean passengerStatus = false;
-//					String reservationStatus = "failed";
 					
 					if (passengerStatus == false)
 					{

@@ -225,7 +225,6 @@ public class GUIScheduleFlight {
 					}
 					
 					boolean flightStatus = airline.scheduleFlight(flight, stops);
-//					boolean flightStatus = false;
 					
 					if (flightStatus == false)
 						setStatus("Failed", "");

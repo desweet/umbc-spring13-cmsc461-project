@@ -68,7 +68,7 @@ public class GUICheckIn {
 		frmCheckIn.getContentPane().add(lblSSN);
 		
 		final JComboBox<String> cbSSN = new JComboBox<String>();
-		cbSSN.setModel(new DefaultComboBoxModel<String>(airline.getPassengers().toArray(new String[airline.getFlightNumbers().size()])));
+		cbSSN.setModel(new DefaultComboBoxModel<String>(airline.getPassengers().toArray(new String[airline.getPassengers().size()])));
 		frmCheckIn.getContentPane().add(cbSSN);
 		
 		JLabel lblBaggageCarried = new JLabel("Baggage carried:");
@@ -122,7 +122,7 @@ public class GUICheckIn {
 					if (checkInStatus == false)
 						lblPassengerStatusStatus.setText("Failed");
 					else
-						lblPassengerStatusStatus.setText("Created");
+						lblPassengerStatusStatus.setText("Updated");
 					
 					lblSubmitStatus.setText("");
 				}

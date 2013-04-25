@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.regex.Pattern;
 
@@ -28,6 +29,8 @@ public class GUIModifyFlight {
 	private JLabel lblSubmitStatus;
 	private JLabel lblFlightStatus;
 	private JLabel lblFlightStatusStatus;
+	private JComboBox<String> cbStops;
+	private JLabel lblStops;
 
 	/**
 	 * Launch the application.
@@ -71,8 +74,48 @@ public class GUIModifyFlight {
 		frmModifyFlight.getContentPane().add(lblFlightNumber);
 		
 		final JComboBox<String> cbFlightNumber = new JComboBox<String>();
+		lblStops = new JLabel("Stops:");
+		cbStops = new JComboBox<String>();
+		
+		cbFlightNumber.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (String.valueOf(cbFlightNumber.getSelectedItem()).trim().equals(""))
+					setStatus("", "");
+				else {
+					System.out.println(Integer.parseInt(String.valueOf(cbFlightNumber.getSelectedItem())));
+					
+					ArrayList<Stop> stops = airline.getStops(Integer.parseInt(String.valueOf(cbFlightNumber.getSelectedItem())));
+					
+					ArrayList<String> stopCities = new ArrayList<String>();
+					for (int i = 0; i < stops.size(); i++) {
+						stopCities.add(stops.get(i).getCity());
+					}
+					
+					cbStops.setModel(new DefaultComboBoxModel<String>(stopCities.toArray(new String[airline.getStops(Integer.parseInt(String.valueOf(cbFlightNumber.getSelectedItem()))).size()])));
+				}
+			}
+		});
 		cbFlightNumber.setModel(new DefaultComboBoxModel<String>(airline.getFlightNumbers().toArray(new String[airline.getFlightNumbers().size()])));
 		frmModifyFlight.getContentPane().add(cbFlightNumber);
+		
+		lblStops.setHorizontalAlignment(SwingConstants.CENTER);
+		frmModifyFlight.getContentPane().add(lblStops);
+		
+		cbStops.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (String.valueOf(cbStops.getSelectedItem()).trim().equals(""))
+					setStatus("", "");
+				else {
+					ArrayList<Stop> stops = airline.getStops(Integer.parseInt(String.valueOf(cbFlightNumber.getSelectedItem())));
+					
+					String city = stops.get(cbStops.getSelectedIndex()).getCity();
+					
+					System.out.println(city);
+				}
+			}
+		});
+		
+		frmModifyFlight.getContentPane().add(cbStops);
 		
 		JLabel lblDepartureDateTime = new JLabel("Departure date/time:");
 		lblDepartureDateTime.setHorizontalAlignment(SwingConstants.CENTER);
