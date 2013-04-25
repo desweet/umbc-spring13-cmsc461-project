@@ -220,7 +220,6 @@ public class GUIScheduleFlight {
 								e1.printStackTrace();
 							}
 							
-							// i or i+1?
 							stops.add(new Stop(flightNumber, i, String.valueOf(cities[i].getSelectedItem()), arrival, departure));
 						}
 					}
