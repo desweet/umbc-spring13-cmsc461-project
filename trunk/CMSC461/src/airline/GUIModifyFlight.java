@@ -162,10 +162,6 @@ public class GUIModifyFlight {
 		lblSubmitStatus = new JLabel("");
 		btnSubmit = new JButton("Submit");
 		
-//		cbFlightNumber.setSelectedIndex(1);
-//		tfDepartureDateTime.setText("04-25-2013 10:00");
-//		tfArrivalDateTime.setText("04-26-2013 01:00");
-		
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (String.valueOf(cbFlightNumber.getSelectedItem()).trim().equals(""))
