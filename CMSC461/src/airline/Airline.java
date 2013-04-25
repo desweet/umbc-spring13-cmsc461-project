@@ -417,48 +417,48 @@ public class Airline {
 	
 	
 	// main for testing
-	public static void main(String [ ] args){
-		
-		
-		
-//		System.out.println("initializing Airline");
-		Airline a = new Airline();
-
-		ArrayList<String> pass = a.getPassengers();
-		for(int i = 0; i < pass.size(); i++){
-			System.out.println(pass.toArray()[2]);
-		}
-		ArrayList<Stop> stops = a.getStops(2);
-		
-		System.out.println(a.numStops(2));
-		
-		for(int i = 0; i < stops.size(); i++){
-			System.out.println(stops.get(i).getStopNum() + "  " + stops.get(i).getCity());
-		}
-//		double minutes = a.timeTaken(5);
-//		int hours = (int) (minutes / 60);
-//		int min = (int) (minutes % 60);
-//		System.out.println(hours + " Hours " + min + " Minutes");
-//		Calendar cal = Calendar.getInstance();
-//		Date date = new Date(System.currentTimeMillis());
-//		System.out.println(date.getDate() + " " + (date.getMonth() + 1) +  " " + (date.getYear() + 1900));
-
-//		ArrayList<String> fn = a.getFlightNumbers();
+//	public static void main(String [ ] args){
 //		
-//		for(int i = 0; i < fn.size(); i++){
-//			System.out.println(fn.get(i));
+//		
+//		
+////		System.out.println("initializing Airline");
+//		Airline a = new Airline();
+//
+//		ArrayList<String> pass = a.getPassengers();
+//		for(int i = 0; i < pass.size(); i++){
+//			System.out.println(pass.toArray()[2]);
 //		}
-		
-//		Reservation r = new Reservation(1, 123456788, "first", 75.25, 2 );
-//		if (a.makeReservation(r) != null){
-//			System.out.println(":)");
-//		} else {
-//			System.out.println(":(");
+//		ArrayList<Stop> stops = a.getStops(2);
+//		
+//		System.out.println(a.numStops(2));
+//		
+//		for(int i = 0; i < stops.size(); i++){
+//			System.out.println(stops.get(i).getStopNum() + "  " + stops.get(i).getCity());
 //		}
-		
-//			
-		//close connection to Database
-		a.close();
-	}
+////		double minutes = a.timeTaken(5);
+////		int hours = (int) (minutes / 60);
+////		int min = (int) (minutes % 60);
+////		System.out.println(hours + " Hours " + min + " Minutes");
+////		Calendar cal = Calendar.getInstance();
+////		Date date = new Date(System.currentTimeMillis());
+////		System.out.println(date.getDate() + " " + (date.getMonth() + 1) +  " " + (date.getYear() + 1900));
+//
+////		ArrayList<String> fn = a.getFlightNumbers();
+////		
+////		for(int i = 0; i < fn.size(); i++){
+////			System.out.println(fn.get(i));
+////		}
+//		
+////		Reservation r = new Reservation(1, 123456788, "first", 75.25, 2 );
+////		if (a.makeReservation(r) != null){
+////			System.out.println(":)");
+////		} else {
+////			System.out.println(":(");
+////		}
+//		
+////			
+//		//close connection to Database
+//		a.close();
+//	}
 	
 }
