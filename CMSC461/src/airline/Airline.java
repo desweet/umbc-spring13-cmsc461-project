@@ -2,8 +2,6 @@ package airline;
 
 import java.sql.*;
 import java.util.Date;
-//import java.util.Calendar;
-//import java.util.GregorianCalendar;
 import java.util.ArrayList;
 
 public class Airline {
