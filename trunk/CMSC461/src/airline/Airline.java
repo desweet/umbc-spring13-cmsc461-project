@@ -178,7 +178,7 @@ public class Airline {
 	public Boolean modifyStop (int flightNum, int stopNum, Date arrival, Date departure){
 		try {
 			PreparedStatement update = CONN.prepareStatement("UPDATE stops SET arrival_time = ?, departure_time = ? WHERE flight_number = ? and stop_number = ?");
-			
+
 			update.setTimestamp(1, new Timestamp(arrival.getTime()));
 			update.setTimestamp(2, new Timestamp(departure.getTime()));
 			update.setInt(3, flightNum);
@@ -395,6 +395,10 @@ public class Airline {
 		}
 	}
 	
+	/*******************************************************************************************************************************
+	 * @param flightNum
+	 * @return returns a Flight Object corresponding to the flight number
+	 ******************************************************************************************************************************/
 	public Flight getFlight(int flightNum){
 		Flight f = null;
 		try {
