@@ -239,10 +239,7 @@ public class Airline {
 			
 			ArrayList<String> flightNumbers = new ArrayList<String>();
 			flightNumbers.add("");
-			result.first();
 			
-			//prime loop
-			flightNumbers.add(Integer.toString(result.getInt("flight_number")));
 			while (result.next()){
 				flightNumbers.add(Integer.toString(result.getInt("flight_number")));
 			}
@@ -265,12 +262,9 @@ public class Airline {
 			
 			ArrayList<String> passengers = new ArrayList<String>();
 			passengers.add("");
-			result.first();
 			
 			DecimalFormat df = new DecimalFormat("#");
 			
-			//prime loop
-			passengers.add(df.format(result.getDouble("SSN")));
 			while (result.next()){
 				passengers.add(df.format(result.getDouble("SSN")));
 			}
